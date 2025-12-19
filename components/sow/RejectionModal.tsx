@@ -55,11 +55,11 @@ export function RejectionModal({
 
   return (
     <Modal isOpen={isOpen} onClose={handleClose} title="Reject Scope of Work">
-      <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
+      <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
         <div>
           <label
             htmlFor="rejection-reason"
-            className="block text-sm font-medium text-gray-700 mb-2"
+            className="block text-sm font-medium text-light-secondary mb-3"
           >
             Reason for Rejection
           </label>
@@ -67,30 +67,30 @@ export function RejectionModal({
             id="rejection-reason"
             rows={6}
             className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary resize-none ${
-              errors.reason ? 'border-red-500' : 'border-gray-300'
+              errors.reason ? 'border-red-500' : 'border-dark-border'
             }`}
             placeholder="Please provide a detailed reason for rejecting this scope of work..."
             disabled={isLoading}
             {...register('reason')}
           />
-          <div className="flex justify-between items-start mt-1">
-            <p className="text-sm text-gray-500">
+          <div className="flex justify-between items-start mt-2">
+            <p className="text-sm text-light-muted">
               This will be sent to the design team.
             </p>
             <p
               className={`text-sm ${
-                characterCount > 2000 ? 'text-red-500' : 'text-gray-500'
+                characterCount > 2000 ? 'text-red-500' : 'text-light-muted'
               }`}
             >
               {characterCount}/2000
             </p>
           </div>
           {errors.reason && (
-            <p className="text-sm text-red-500 mt-1">{errors.reason.message}</p>
+            <p className="text-sm text-red-500 mt-2">{errors.reason.message}</p>
           )}
         </div>
 
-        <div className="flex gap-3 pt-4">
+        <div className="flex gap-4 pt-6">
           <Button
             type="button"
             variant="secondary"

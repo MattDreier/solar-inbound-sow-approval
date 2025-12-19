@@ -11,10 +11,10 @@ export function Card({ children, highlighted = false, className }: CardProps) {
   return (
     <div
       className={cn(
-        'rounded-lg border p-6',
+        'border transition-all duration-300',
         highlighted
-          ? 'bg-commission-bg border-commission-border'
-          : 'bg-white border-gray-200',
+          ? 'bg-commission-bg border-commission-border shadow-lg shadow-commission-border/10 p-10'
+          : 'bg-dark-card/50 border-dark-border/40 hover:border-dark-border/70 hover:bg-dark-card/70 shadow-sm p-9',
         className
       )}
     >
@@ -30,8 +30,8 @@ interface CardHeaderProps {
 
 export function CardHeader({ children, className }: CardHeaderProps) {
   return (
-    <div className={cn('mb-4 pb-3 border-b border-gray-200', className)}>
-      <h2 className="text-xl font-semibold text-gray-900">{children}</h2>
+    <div className={cn('mb-6 pb-4 border-b border-dark-border', className)}>
+      <h2 className="text-heading-3 text-light-primary">{children}</h2>
     </div>
   );
 }
@@ -42,5 +42,5 @@ interface CardContentProps {
 }
 
 export function CardContent({ children, className }: CardContentProps) {
-  return <div className={cn('space-y-3', className)}>{children}</div>;
+  return <div className={cn('space-y-4', className)}>{children}</div>;
 }

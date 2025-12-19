@@ -16,24 +16,24 @@ export function ApprovalActions({
   isLoading = false,
 }: ApprovalActionsProps) {
   return (
-    <div className="flex flex-col sm:flex-row gap-4 w-full">
-      <Button
-        variant="secondary"
-        onClick={onReject}
-        isLoading={isLoading}
-        disabled={isLoading}
-        className="w-full sm:w-auto sm:flex-1"
-      >
-        Reject
-      </Button>
+    <div className="flex flex-col gap-3 w-full">
       <Button
         variant="primary"
         onClick={onApprove}
         isLoading={isLoading}
         disabled={isLoading}
-        className="w-full sm:w-auto sm:flex-[2] text-lg"
+        className="w-full text-lg"
       >
         Approve
+      </Button>
+      <Button
+        variant="danger"
+        onClick={onReject}
+        isLoading={isLoading}
+        disabled={isLoading}
+        className="w-full"
+      >
+        Reject
       </Button>
     </div>
   );

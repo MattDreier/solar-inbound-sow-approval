@@ -18,11 +18,11 @@ export function Button({
   return (
     <button
       className={cn(
-        'px-6 py-3 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed',
+        'px-8 py-3.5 rounded-none font-normal text-body transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed relative overflow-hidden group',
         {
-          'bg-primary text-white hover:bg-primary-dark': variant === 'primary',
-          'bg-gray-200 text-gray-800 hover:bg-gray-300': variant === 'secondary',
-          'bg-status-rejected text-white hover:bg-red-600': variant === 'danger',
+          'bg-black text-white hover:bg-gray-900': variant === 'primary',
+          'bg-dark-card/60 text-light-primary hover:bg-dark-card border border-dark-border/60 hover:border-dark-border backdrop-blur-sm': variant === 'secondary',
+          'bg-white text-black border-2 border-black hover:bg-gray-50': variant === 'danger',
         },
         className
       )}

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
+import Image from 'next/image';
 import { Header } from '@/components/layout/Header';
 import { Container } from '@/components/layout/Container';
 import { PinInput } from '@/components/ui/PinInput';
@@ -205,19 +206,19 @@ export default function SOWPage() {
   // PIN Entry View
   if (!isVerified) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-dark-bg">
         <Header />
         <Container className="flex items-center justify-center min-h-[calc(100vh-88px)]">
           <div className="w-full max-w-md">
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
-              <div className="text-center mb-8">
-                <h1 className="text-2xl font-semibold text-gray-900 mb-2">
+            <div className="bg-dark-card/50 shadow-2xl border border-dark-border/40 p-12 backdrop-blur-sm">
+              <div className="text-center mb-12">
+                <h1 className="text-heading-1 text-light-primary mb-4 font-light tracking-tight">
                   Scope of Work Review
                 </h1>
-                <p className="text-gray-600 mb-1">
+                <p className="text-body-lg text-light-secondary mb-2">
                   Enter your PIN to view this SOW
                 </p>
-                <p className="text-sm text-gray-500">
+                <p className="text-body-sm text-light-muted">
                   PIN was sent to your email
                 </p>
               </div>
@@ -237,7 +238,7 @@ export default function SOWPage() {
   // Loading SOW Data
   if (isLoadingData) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-dark-bg">
         <Header />
         <Container className="flex items-center justify-center min-h-[calc(100vh-88px)]">
           <LoadingSpinner size="lg" />
@@ -249,14 +250,14 @@ export default function SOWPage() {
   // Error State
   if (dataError || !sowData) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-dark-bg">
         <Header />
         <Container className="flex items-center justify-center min-h-[calc(100vh-88px)]">
           <div className="text-center">
-            <h1 className="text-2xl font-semibold text-gray-900 mb-2">
+            <h1 className="text-heading-2 text-light-primary mb-3">
               {dataError || 'SOW not found'}
             </h1>
-            <p className="text-gray-600">Please check the URL and try again.</p>
+            <p className="text-light-secondary">Please check the URL and try again.</p>
           </div>
         </Container>
       </div>
@@ -267,54 +268,140 @@ export default function SOWPage() {
 
   // SOW Content View
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-dark-bg">
       <Header />
-      <Container>
-        <div className="space-y-6">
-          {/* Status Badge (shown if approved/rejected) */}
+      <Container className="max-w-7xl">
+        {/* Status Badge (shown if approved/rejected) */}
+        <div className="pt-16">
           <StatusBadge data={sowData} />
+        </div>
 
-          {/* Customer Name Header */}
-          <div className="text-center">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
-              {sowData.customer.name}
-            </h1>
-            <p className="text-gray-600 mt-1">{sowData.customer.address}</p>
+        {/* Hero Section - Grafit-inspired layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch pb-32 pt-8">
+          {/* Left: Customer Info - 5 columns */}
+          <div className="lg:col-span-5 flex flex-col justify-between">
+            {/* Breadcrumb at top */}
+            <p className="text-[15.43px] leading-[23.15px] text-light-muted uppercase tracking-normal mb-0 font-normal">
+              SCOPE OF WORK &nbsp;&nbsp;›&nbsp;&nbsp; {sowData.customer.address.toUpperCase()}
+            </p>
+
+            {/* Content at bottom (using space-between) */}
+            <div>
+              <h1 className="text-[37.54px] leading-[45.05px] text-light-primary font-normal tracking-normal mb-0">
+                {sowData.customer.name}
+              </h1>
+
+              <div className="inline-block px-2 py-1 bg-[rgb(23,23,25)] text-light-primary text-[11.66px] leading-[11.66px] font-medium uppercase tracking-normal border border-[rgb(61,62,69)] mt-[44.69px] mb-2">
+                Solar Installation
+              </div>
+
+              <p className="text-[17.32px] leading-[25.99px] text-light-primary font-medium tracking-normal">
+                {sowData.system.size} kW System
+              </p>
+            </div>
           </div>
 
-          {/* Deal Details */}
-          <DealDetailsSection data={sowData} />
+          {/* Right: Proposal Image - 7 columns */}
+          <div className="lg:col-span-7 relative w-full aspect-[16/9] bg-dark-surface overflow-hidden">
+            <Image
+              src={sowData.proposalImageUrl}
+              alt="Solar System Proposal"
+              fill
+              sizes="(max-width: 1024px) 100vw, 58vw"
+              className="object-cover"
+              priority
+            />
+          </div>
+        </div>
 
-          {/* System Details */}
-          <SystemDetailsSection data={sowData} />
+        {/* Two-column layout: Main content + Sticky sidebar */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-16 pb-16">
+          {/* Main Content */}
+          <div className="space-y-20">
 
-          {/* Financing Details */}
-          <FinancingSection data={sowData} />
+            {/* 01 Deal Details */}
+            <section className="space-y-6">
+              <div className="flex items-baseline gap-5">
+                <span className="text-label text-light-muted font-normal">01</span>
+                <h2 className="text-heading-3 text-light-primary font-normal">Deal Details</h2>
+              </div>
+              <DealDetailsSection data={sowData} />
+            </section>
 
-          {/* Adders */}
-          <AddersSection data={sowData} />
+            {/* 02 System Details */}
+            <section className="space-y-6">
+              <div className="flex items-baseline gap-5">
+                <span className="text-label text-light-muted font-normal">02</span>
+                <h2 className="text-heading-3 text-light-primary font-normal">System Specifications</h2>
+              </div>
+              <SystemDetailsSection data={sowData} />
+            </section>
 
-          {/* Commission Breakdown (highlighted) */}
-          <CommissionSection data={sowData} />
+            {/* 03 Financing */}
+            <section className="space-y-6">
+              <div className="flex items-baseline gap-5">
+                <span className="text-label text-light-muted font-normal">03</span>
+                <h2 className="text-heading-3 text-light-primary font-normal">Financing Details</h2>
+              </div>
+              <FinancingSection data={sowData} />
+            </section>
 
-          {/* Proposal Image */}
-          <ProposalDisplay data={sowData} />
+            {/* 04 Adders */}
+            <section className="space-y-6">
+              <div className="flex items-baseline gap-5">
+                <span className="text-label text-light-muted font-normal">04</span>
+                <h2 className="text-heading-3 text-light-primary font-normal">Additional Items</h2>
+              </div>
+              <AddersSection data={sowData} />
+            </section>
 
-          {/* Plan PDF */}
-          <PlanDisplay data={sowData} />
+            {/* 05 Commission (highlighted) */}
+            <section className="space-y-6">
+              <div className="flex items-baseline gap-5">
+                <span className="text-label text-light-muted font-normal">05</span>
+                <h2 className="text-heading-3 text-light-primary font-normal">Commission Breakdown</h2>
+              </div>
+              <CommissionSection data={sowData} />
+            </section>
 
-          {/* Disclaimer */}
-          <DisclaimerSection />
+            {/* 06 Proposal & Plans */}
+            <section className="space-y-6">
+              <div className="flex items-baseline gap-5">
+                <span className="text-label text-light-muted font-normal">06</span>
+                <h2 className="text-heading-3 text-light-primary font-normal">Proposal & Plans</h2>
+              </div>
+              <div className="space-y-6">
+                <ProposalDisplay data={sowData} />
+                <PlanDisplay data={sowData} />
+              </div>
+            </section>
 
-          {/* Approval/Rejection Actions (only shown if pending) */}
+            {/* Disclaimer */}
+            <DisclaimerSection />
+          </div>
+
+          {/* Sticky Sidebar - Approval Actions */}
           {isPending && (
-            <div className="py-6">
-              <ApprovalActions
-                token={token}
-                onApprove={handleApprove}
-                onReject={() => setShowRejectionModal(true)}
-                isLoading={actionLoading}
-              />
+            <div className="lg:sticky lg:top-24 h-fit">
+              <div style={{ backgroundColor: '#f7f8fc' }} className="border border-gray-200 p-8 shadow-xl">
+                <div className="mb-6">
+                  <span className="text-label text-gray-500 uppercase">
+                    Action Required
+                  </span>
+                  <h3 className="text-heading-3 text-gray-900 mt-3 font-normal">
+                    Review & Approve
+                  </h3>
+                  <p className="text-body-sm text-gray-600 mt-3 leading-relaxed">
+                    Please review all sections carefully before making your decision.
+                  </p>
+                </div>
+                <ApprovalActions
+                  token={token}
+                  onApprove={handleApprove}
+                  onReject={() => setShowRejectionModal(true)}
+                  isLoading={actionLoading}
+                />
+              </div>
             </div>
           )}
         </div>

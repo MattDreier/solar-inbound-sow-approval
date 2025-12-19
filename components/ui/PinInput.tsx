@@ -77,8 +77,8 @@ export function PinInput({ onComplete, error, isLoading }: PinInputProps) {
   };
 
   return (
-    <div className="space-y-4">
-      <div className="flex gap-2 justify-center">
+    <div className="space-y-5">
+      <div className="flex gap-3 justify-center">
         {pins.map((pin, index) => (
           <input
             key={index}
@@ -93,12 +93,12 @@ export function PinInput({ onComplete, error, isLoading }: PinInputProps) {
             disabled={isLoading}
             className={cn(
               'w-12 h-14 text-center text-2xl font-semibold border-2 rounded-lg',
-              'text-gray-900 bg-white',
+              'text-light-secondary bg-white',
               'focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent',
               'transition-all',
               error
                 ? 'border-status-rejected'
-                : 'border-gray-300',
+                : 'border-dark-border',
               isLoading && 'opacity-50 cursor-not-allowed'
             )}
             autoFocus={index === 0}

@@ -8,7 +8,14 @@ interface ContainerProps {
 
 export function Container({ children, className }: ContainerProps) {
   return (
-    <div className={cn('max-w-5xl mx-auto px-4 py-8', className)}>
+    <div className={cn(
+      'max-w-container mx-auto py-8',
+      // Grafit-inspired responsive margins
+      'px-[21px]',      // Mobile: 21px
+      'md:px-[29px]',   // Tablet (768px): 29px
+      'lg:px-[44px]',   // Desktop (1024px+): 44px
+      className
+    )}>
       {children}
     </div>
   );

@@ -1,5 +1,5 @@
 import { SOWData } from '@/lib/types';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 
 interface PlanDisplayProps {
   data: SOWData;
@@ -8,12 +8,11 @@ interface PlanDisplayProps {
 export function PlanDisplay({ data }: PlanDisplayProps) {
   return (
     <Card>
-      <CardHeader>Plan</CardHeader>
       <CardContent>
-        <div className="space-y-4">
+        <div className="space-y-6">
           {/* PDF Viewer for desktop */}
           <div className="hidden md:block">
-            <div className="w-full h-[600px] border border-gray-200 rounded-md overflow-hidden bg-gray-50">
+            <div className="w-full h-[600px] border border-dark-border rounded-md overflow-hidden bg-dark-surface">
               <iframe
                 src={data.planFileUrl}
                 className="w-full h-full"
@@ -24,7 +23,7 @@ export function PlanDisplay({ data }: PlanDisplayProps) {
 
           {/* Download link for mobile and as backup */}
           <div className="md:hidden">
-            <p className="text-sm text-gray-600 mb-3">
+            <p className="text-sm text-light-tertiary mb-5">
               PDF viewer is not available on mobile devices.
             </p>
           </div>

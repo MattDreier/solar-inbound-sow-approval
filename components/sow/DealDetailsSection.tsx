@@ -9,42 +9,41 @@ interface DealDetailsSectionProps {
 export function DealDetailsSection({ data }: DealDetailsSectionProps) {
   return (
     <Card>
-      <CardHeader>Deal Details</CardHeader>
       <CardContent>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3">
-          <div className="grid grid-cols-[140px_1fr] gap-4">
-            <span className="text-gray-600">Customer Name:</span>
-            <span className="font-medium text-gray-900">{formatValue(data.customer.name)}</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-6">
+          <div className="flex justify-between items-baseline gap-8">
+            <span className="text-body-sm text-light-muted shrink-0">Customer Name</span>
+            <span className="text-body text-light-primary text-right">{formatValue(data.customer.name)}</span>
           </div>
 
-          <div className="grid grid-cols-[140px_1fr] gap-4">
-            <span className="text-gray-600">Phone:</span>
-            <span className="font-medium text-gray-900">{formatValue(data.customer.phone)}</span>
+          <div className="flex justify-between items-baseline gap-8">
+            <span className="text-body-sm text-light-muted shrink-0">Phone</span>
+            <span className="text-body text-light-primary text-right">{formatValue(data.customer.phone)}</span>
           </div>
 
-          <div className="grid grid-cols-[140px_1fr] gap-4">
-            <span className="text-gray-600">Email:</span>
-            <span className="font-medium text-gray-900">{formatValue(data.customer.email)}</span>
+          <div className="flex justify-between items-baseline gap-8">
+            <span className="text-body-sm text-light-muted shrink-0">Email</span>
+            <span className="text-body text-light-primary text-right">{formatValue(data.customer.email)}</span>
           </div>
 
-          <div className="grid grid-cols-[140px_1fr] gap-4">
-            <span className="text-gray-600">Sales Rep Name:</span>
-            <span className="font-medium text-gray-900">{formatValue(data.salesRep.name)}</span>
+          <div className="flex justify-between items-baseline gap-8">
+            <span className="text-body-sm text-light-muted shrink-0">Sales Rep Name</span>
+            <span className="text-body text-light-primary text-right">{formatValue(data.salesRep.name)}</span>
           </div>
 
-          <div className="grid grid-cols-[140px_1fr] gap-4">
-            <span className="text-gray-600">Sales Rep Email:</span>
-            <span className="font-medium text-gray-900">{formatValue(data.salesRep.email)}</span>
+          <div className="flex justify-between items-baseline gap-8">
+            <span className="text-body-sm text-light-muted shrink-0">Sales Rep Email</span>
+            <span className="text-body text-light-primary text-right">{formatValue(data.salesRep.email)}</span>
           </div>
 
-          <div className="grid grid-cols-[140px_1fr] gap-4">
-            <span className="text-gray-600">Setter:</span>
-            <span className="font-medium text-gray-900">{formatValue(data.setter)}</span>
+          <div className="flex justify-between items-baseline gap-8">
+            <span className="text-body-sm text-light-muted shrink-0">Setter</span>
+            <span className="text-body text-light-primary text-right">{formatValue(data.setter)}</span>
           </div>
 
-          <div className="grid grid-cols-[140px_1fr] gap-4">
-            <span className="text-gray-600">Lead Source:</span>
-            <span className="font-medium text-gray-900">{formatValue(data.leadSource)}</span>
+          <div className="flex justify-between items-baseline gap-8">
+            <span className="text-body-sm text-light-muted shrink-0">Lead Source</span>
+            <span className="text-body text-light-primary text-right">{formatValue(data.leadSource)}</span>
           </div>
         </div>
       </CardContent>

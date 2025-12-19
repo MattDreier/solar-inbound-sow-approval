@@ -1,6 +1,6 @@
 import { SOWData } from '@/lib/types';
 import { formatCurrency, formatAdderLabel } from '@/lib/utils';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 
 interface AddersSectionProps {
   data: SOWData;
@@ -19,25 +19,24 @@ export function AddersSection({ data }: AddersSectionProps) {
 
   return (
     <Card>
-      <CardHeader>Adders</CardHeader>
       <CardContent>
         {adderEntries.length === 0 ? (
-          <p className="text-gray-500">No adders for this project</p>
+          <p className="text-body-sm text-light-muted">No adders for this project</p>
         ) : (
-          <div className="space-y-2">
+          <div className="space-y-4">
             {adderEntries.map(({ label, value }) => (
-              <div key={label} className="grid grid-cols-[1fr_auto] gap-4 py-1">
-                <span className="text-gray-700">{label}:</span>
-                <span className="font-medium text-gray-900 text-right">
+              <div key={label} className="flex justify-between items-baseline gap-8">
+                <span className="text-body-sm text-light-muted">{label}</span>
+                <span className="text-body text-light-primary text-right">
                   {formatCurrency(value)}
                 </span>
               </div>
             ))}
 
-            <div className="border-t border-gray-300 mt-4 pt-3">
-              <div className="grid grid-cols-[1fr_auto] gap-4">
-                <span className="font-semibold text-gray-900">Total Adders:</span>
-                <span className="font-bold text-gray-900 text-right">
+            <div className="border-t border-dark-border/40 mt-6 pt-6">
+              <div className="flex justify-between items-baseline gap-8">
+                <span className="text-body text-light-secondary">Total Adders</span>
+                <span className="text-body-lg text-light-primary font-medium text-right">
                   {formatCurrency(adders.addersTotal)}
                 </span>
               </div>

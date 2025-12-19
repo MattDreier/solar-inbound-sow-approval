@@ -11,11 +11,11 @@ export function Badge({ children, variant, className }: BadgeProps) {
   return (
     <span
       className={cn(
-        'inline-flex items-center px-4 py-2 rounded-full text-sm font-medium',
+        'inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wide',
         {
-          'bg-green-100 text-green-800': variant === 'approved',
-          'bg-red-100 text-red-800': variant === 'rejected',
-          'bg-yellow-100 text-yellow-800': variant === 'pending',
+          'bg-status-approved/10 text-status-approved border border-status-approved/30': variant === 'approved',
+          'bg-status-rejected/10 text-status-rejected border border-status-rejected/30': variant === 'rejected',
+          'bg-status-pending/10 text-status-pending border border-status-pending/30': variant === 'pending',
         },
         className
       )}

@@ -19,9 +19,9 @@ export function StatusBadge({ data }: StatusBadgeProps) {
   const actionBy = isApproved ? data.approvedBy : null;
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <Card className={`${bgColor} ${borderColor} border-2`}>
-        <div className="text-center py-4">
+        <div className="text-center py-6">
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
             {statusText}
           </h1>
@@ -38,9 +38,9 @@ export function StatusBadge({ data }: StatusBadgeProps) {
 
       {!isApproved && data.rejectionReason && (
         <Card className="border-2 border-status-rejected">
-          <div className="space-y-2">
-            <h3 className="font-semibold text-gray-900">Rejection Reason:</h3>
-            <p className="text-gray-700 whitespace-pre-wrap">{data.rejectionReason}</p>
+          <div className="space-y-3">
+            <h3 className="font-semibold text-light-secondary">Rejection Reason:</h3>
+            <p className="text-light-secondary whitespace-pre-wrap">{data.rejectionReason}</p>
           </div>
         </Card>
       )}
