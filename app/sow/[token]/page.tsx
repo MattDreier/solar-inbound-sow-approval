@@ -300,7 +300,7 @@ export default function SOWPage() {
       <Container className="max-w-7xl">
 
         {/* Hero Section - Grafit-inspired layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch pb-32 pt-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch pb-16 pt-8">
           {/* Left: Customer Info - 5 columns */}
           <div className="lg:col-span-5 flex flex-col justify-between">
             {/* Breadcrumb at top */}
@@ -338,7 +338,7 @@ export default function SOWPage() {
         </div>
 
         {/* Two-column layout: Main content + Sticky sidebar */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_233px] gap-16 pb-36">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_233px] gap-16 pb-24">
           {/* Main Content */}
           <div className="space-y-8 lg:space-y-20">
 
@@ -379,16 +379,16 @@ export default function SOWPage() {
             </section>
 
             {/* Large status/action section at bottom */}
-            <div className="pt-8 lg:pt-20 pb-4 lg:pb-[calc(60vh-6rem)]">
+            <div className="pt-8 lg:pt-20 pb-8 lg:pb-[310px]">
               {isPending ? (
                 // Pending: Show "Approve" text (non-clickable)
                 <>
-                  <h2 className="text-[37.54px] leading-[45.05px] text-text-primary font-normal tracking-normal flex justify-between items-center mt-8 lg:mt-[100px]">
+                  <h2 className="text-[37.54px] leading-[45.05px] text-text-primary font-normal tracking-normal flex justify-between items-center mt-8 lg:mt-[100px] mb-8">
                     <span>Approve</span>
                     <span>→</span>
                   </h2>
-                  <div className="pt-6 border-b border-text-muted"></div>
-                  <p className="text-[11px] text-status-rejected mt-3 font-bold">
+                  <div className="border-b border-text-muted"></div>
+                  <p className="text-[11px] text-status-rejected mt-3 mb-0 font-bold">
                     THIS IS SUBJECT TO CHANGE AFTER PRE-PRODUCTION UPLOAD AND INSTALLATION
                   </p>
                 </>

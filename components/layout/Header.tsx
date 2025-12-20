@@ -31,13 +31,7 @@ export function Header() {
   const isDark = resolvedTheme === 'dark';
 
   return (
-    <header
-      className={`
-        sticky top-0 z-40 transition-all duration-300
-        ${!isScrolled && isDark ? 'bg-dark-bg/95 backdrop-blur-md' : ''}
-        ${!isScrolled && !isDark ? 'bg-bg/95 backdrop-blur-md' : ''}
-      `}
-    >
+    <header className="sticky top-0 z-40 transition-all duration-300">
       <div className="max-w-container mx-auto px-[21px] md:px-[29px] lg:px-[44px] py-2.5">
         <div
           className={`
