@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
+  darkMode: 'class',
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -9,7 +10,20 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Grafit's exact color palette
+        // Theme-aware semantic tokens (NEW)
+        bg: 'rgb(var(--color-bg) / <alpha-value>)',
+        surface: 'rgb(var(--color-surface) / <alpha-value>)',
+        card: 'rgb(var(--color-card) / <alpha-value>)',
+        border: 'rgb(var(--color-border) / <alpha-value>)',
+        hover: 'rgb(var(--color-hover) / <alpha-value>)',
+        text: {
+          primary: 'rgb(var(--color-text-primary) / <alpha-value>)',
+          secondary: 'rgb(var(--color-text-secondary) / <alpha-value>)',
+          tertiary: 'rgb(var(--color-text-tertiary) / <alpha-value>)',
+          muted: 'rgb(var(--color-text-muted) / <alpha-value>)',
+        },
+
+        // Legacy colors (for backwards compatibility during migration)
         dark: {
           bg: '#181819',           // Main background
           surface: '#1a1a1a',      // Slightly lighter surface
@@ -23,6 +37,8 @@ const config: Config = {
           tertiary: '#d7d8e0',     // Medium gray rgb(215, 216, 224)
           muted: '#8c8e99',        // Grafit's label color rgb(140, 142, 153)
         },
+
+        // Fixed colors (same in both themes)
         primary: {
           DEFAULT: '#3b82f6',      // Blue accent
           light: '#60a5fa',        // Lighter variant
@@ -34,14 +50,14 @@ const config: Config = {
           pink: '#ec4899',         // Tertiary accent
         },
         commission: {
-          bg: '#2d1b2e',           // Dark purple-pink background
-          border: '#4a2d4b',       // Purple-pink border
-          text: '#f0abfc',         // Light pink text
+          bg: 'rgb(var(--color-commission-bg) / <alpha-value>)',
+          border: 'rgb(var(--color-commission-border) / <alpha-value>)',
+          text: 'rgb(var(--color-commission-text) / <alpha-value>)',
         },
         status: {
-          approved: '#34d399',     // Green
-          rejected: '#f87171',     // Red
-          pending: '#fbbf24',      // Yellow
+          approved: '#22c55e',     // green-500 (fixed)
+          rejected: '#ef4444',     // red-500 (fixed)
+          pending: '#f59e0b',      // amber-500 (fixed)
         },
       },
       fontSize: {
@@ -66,6 +82,26 @@ const config: Config = {
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Arial', 'sans-serif'],
+      },
+      animation: {
+        'ping-slow': 'ping 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'glow': 'glow 3s ease-in-out infinite',
+      },
+      keyframes: {
+        glow: {
+          '0%, 100%': {
+            boxShadow: '0 0 3px 1px rgba(239, 68, 68, 0.5), 0 0 6px 2px rgba(239, 68, 68, 0.3), 0 0 9px 3px rgba(239, 68, 68, 0.15)',
+          },
+          '25%': {
+            boxShadow: '0 0 5px 2px rgba(239, 68, 68, 0.7), 0 0 10px 4px rgba(239, 68, 68, 0.5), 0 0 15px 6px rgba(239, 68, 68, 0.25)',
+          },
+          '50%': {
+            boxShadow: '0 0 8px 3px rgba(239, 68, 68, 1), 0 0 16px 6px rgba(239, 68, 68, 0.7), 0 0 24px 9px rgba(239, 68, 68, 0.4)',
+          },
+          '75%': {
+            boxShadow: '0 0 5px 2px rgba(239, 68, 68, 0.7), 0 0 10px 4px rgba(239, 68, 68, 0.5), 0 0 15px 6px rgba(239, 68, 68, 0.25)',
+          },
+        },
       },
     },
   },

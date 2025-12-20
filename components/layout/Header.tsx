@@ -1,9 +1,18 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import { useTheme } from 'next-themes';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const { resolvedTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,60 +23,57 @@ export function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Prevent hydration mismatch
+  if (!mounted) {
+    return null;
+  }
+
+  const isDark = resolvedTheme === 'dark';
+
   return (
     <header
       className={`
         sticky top-0 z-40 transition-all duration-300
-        ${isScrolled ? '' : 'bg-dark-bg/95 backdrop-blur-md'}
+        ${!isScrolled && isDark ? 'bg-dark-bg/95 backdrop-blur-md' : ''}
+        ${!isScrolled && !isDark ? 'bg-white/95 backdrop-blur-md' : ''}
       `}
     >
-      <div className="max-w-container mx-auto px-[21px] md:px-[29px] lg:px-[44px] py-5">
+      <div className="max-w-container mx-auto px-[21px] md:px-[29px] lg:px-[44px] py-2.5">
         <div
           className={`
             flex items-center justify-between transition-all duration-300
-            px-6 py-4
-            ${isScrolled
-              ? 'bg-white shadow-lg'
-              : ''
-            }
+            px-6 py-1 border
+            ${isScrolled && isDark ? 'bg-white' : ''}
+            ${isScrolled && !isDark ? 'bg-dark-bg' : ''}
+            ${isScrolled ? 'border-gray-400' : 'border-transparent'}
           `}
         >
           {/* Logo */}
           <div className="flex items-center gap-3">
-            <div
-              className={`
-                w-11 h-11 flex items-center justify-center shadow-lg transition-all duration-300
-                ${isScrolled
-                  ? 'bg-gradient-to-br from-gray-800 to-gray-900 shadow-gray-800/20'
-                  : 'bg-gradient-to-br from-primary to-accent-purple shadow-primary/10 ring-1 ring-white/5'
-                }
-              `}
-            >
-              <span className="text-white font-semibold text-xl">S</span>
+            <div className="relative h-10 w-10">
+              <Image
+                src="/sunvena-favicon.png"
+                alt="SunVena Icon"
+                fill
+                className="object-contain"
+                priority
+              />
             </div>
             <span
               className={`
-                text-xl font-normal tracking-tight transition-colors duration-300
-                ${isScrolled ? 'text-gray-900' : 'text-light-primary'}
+                text-lg transition-colors duration-300
+                ${isScrolled && isDark ? 'text-dark-bg' : ''}
+                ${isScrolled && !isDark ? 'text-white' : ''}
+                ${!isScrolled && isDark ? 'text-white' : ''}
+                ${!isScrolled && !isDark ? 'text-dark-bg' : ''}
               `}
             >
-              SunVena Solar
+              SunVena
             </span>
           </div>
 
-          {/* CTA Button */}
-          <a
-            href="/contact"
-            className={`
-              px-6 py-2.5 font-medium transition-all duration-300
-              ${isScrolled
-                ? 'bg-gray-900 text-white hover:bg-gray-800'
-                : 'bg-white text-gray-900 hover:bg-gray-100'
-              }
-            `}
-          >
-            Login
-          </a>
+          {/* Theme Toggle */}
+          <ThemeToggle isScrolled={isScrolled} />
         </div>
       </div>
     </header>

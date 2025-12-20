@@ -1,5 +1,5 @@
 import { SOWData } from '@/lib/types';
-import { formatCurrency } from '@/lib/utils';
+import { hasValue, formatCurrency } from '@/lib/utils';
 
 interface CommissionSectionProps {
   data: SOWData;
@@ -10,25 +10,33 @@ export function CommissionSection({ data }: CommissionSectionProps) {
 
   return (
     <div className="space-y-0">
-      <div className="flex justify-between items-baseline py-6 border-b border-gray-700">
-        <span className="text-sm uppercase tracking-wide text-gray-400">Gross PPW</span>
-        <span className="text-base text-white font-normal">${commission.grossPpw}</span>
-      </div>
+      {hasValue(commission.grossPpw) && (
+        <div className="flex flex-col md:grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 md:items-baseline py-6 border-b border-text-muted">
+          <span className="text-base uppercase tracking-wide text-text-muted">Gross PPW</span>
+          <span className="text-sm text-text-primary font-normal break-words">${commission.grossPpw}</span>
+        </div>
+      )}
 
-      <div className="flex justify-between items-baseline py-6 border-b border-gray-700">
-        <span className="text-sm uppercase tracking-wide text-gray-400">Total Adders PPW</span>
-        <span className="text-base text-white font-normal">${commission.totalAddersPpw}</span>
-      </div>
+      {hasValue(commission.totalAddersPpw) && (
+        <div className="flex flex-col md:grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 md:items-baseline py-6 border-b border-text-muted">
+          <span className="text-base uppercase tracking-wide text-text-muted">Total Adders PPW</span>
+          <span className="text-sm text-text-primary font-normal break-words">${commission.totalAddersPpw}</span>
+        </div>
+      )}
 
-      <div className="flex justify-between items-baseline py-6 border-b border-gray-700">
-        <span className="text-sm uppercase tracking-wide text-gray-400">Net PPW</span>
-        <span className="text-base text-white font-normal">${commission.netPpw}</span>
-      </div>
+      {hasValue(commission.netPpw) && (
+        <div className="flex flex-col md:grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 md:items-baseline py-6 border-b border-text-muted">
+          <span className="text-base uppercase tracking-wide text-text-muted">Net PPW</span>
+          <span className="text-sm text-text-primary font-normal break-words">${commission.netPpw}</span>
+        </div>
+      )}
 
-      <div className="flex justify-between items-baseline py-6 border-b border-gray-700">
-        <span className="text-sm uppercase tracking-wide text-gray-400">Total Commission</span>
-        <span className="text-base text-green-400 font-semibold">{formatCurrency(commission.totalCommission)}</span>
-      </div>
+      {hasValue(commission.totalCommission) && (
+        <div className="flex flex-col md:grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 md:items-baseline py-6 border-b border-text-muted">
+          <span className="text-base uppercase tracking-wide text-text-muted">Total Commission</span>
+          <span className="text-sm text-commission-text font-semibold break-words">{formatCurrency(commission.totalCommission)}</span>
+        </div>
+      )}
     </div>
   );
 }

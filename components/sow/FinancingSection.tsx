@@ -1,5 +1,5 @@
 import { SOWData } from '@/lib/types';
-import { formatValue, formatCurrency, formatPercent } from '@/lib/utils';
+import { hasValue, formatCurrency, formatPercent } from '@/lib/utils';
 
 interface FinancingSectionProps {
   data: SOWData;
@@ -10,35 +10,47 @@ export function FinancingSection({ data }: FinancingSectionProps) {
 
   return (
     <div className="space-y-0">
-      <div className="flex justify-between items-baseline py-6 border-b border-gray-700">
-        <span className="text-sm uppercase tracking-wide text-gray-400">Lender</span>
-        <span className="text-base text-white font-normal">{formatValue(financing.lender)}</span>
-      </div>
+      {hasValue(financing.lender) && (
+        <div className="flex flex-col md:grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 md:items-baseline py-6 border-b border-text-muted">
+          <span className="text-base uppercase tracking-wide text-text-muted">Lender</span>
+          <span className="text-sm text-text-primary font-normal break-words">{financing.lender}</span>
+        </div>
+      )}
 
-      <div className="flex justify-between items-baseline py-6 border-b border-gray-700">
-        <span className="text-sm uppercase tracking-wide text-gray-400">Term Length</span>
-        <span className="text-base text-white font-normal">{formatValue(financing.termLength)} years</span>
-      </div>
+      {hasValue(financing.termLength) && (
+        <div className="flex flex-col md:grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 md:items-baseline py-6 border-b border-text-muted">
+          <span className="text-base uppercase tracking-wide text-text-muted">Term Length</span>
+          <span className="text-sm text-text-primary font-normal break-words">{financing.termLength} years</span>
+        </div>
+      )}
 
-      <div className="flex justify-between items-baseline py-6 border-b border-gray-700">
-        <span className="text-sm uppercase tracking-wide text-gray-400">Finance Type</span>
-        <span className="text-base text-white font-normal">{formatValue(financing.financeType)}</span>
-      </div>
+      {hasValue(financing.financeType) && (
+        <div className="flex flex-col md:grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 md:items-baseline py-6 border-b border-text-muted">
+          <span className="text-base uppercase tracking-wide text-text-muted">Finance Type</span>
+          <span className="text-sm text-text-primary font-normal break-words">{financing.financeType}</span>
+        </div>
+      )}
 
-      <div className="flex justify-between items-baseline py-6 border-b border-gray-700">
-        <span className="text-sm uppercase tracking-wide text-gray-400">Interest Rate</span>
-        <span className="text-base text-white font-normal">{formatPercent(financing.interestRate)}</span>
-      </div>
+      {hasValue(financing.interestRate) && (
+        <div className="flex flex-col md:grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 md:items-baseline py-6 border-b border-text-muted">
+          <span className="text-base uppercase tracking-wide text-text-muted">Interest Rate</span>
+          <span className="text-sm text-text-primary font-normal break-words">{formatPercent(financing.interestRate)}</span>
+        </div>
+      )}
 
-      <div className="flex justify-between items-baseline py-6 border-b border-gray-700">
-        <span className="text-sm uppercase tracking-wide text-gray-400">Total Contract Amount</span>
-        <span className="text-base text-white font-normal">{formatCurrency(financing.totalContractAmount)}</span>
-      </div>
+      {hasValue(financing.totalContractAmount) && (
+        <div className="flex flex-col md:grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 md:items-baseline py-6 border-b border-text-muted">
+          <span className="text-base uppercase tracking-wide text-text-muted">Total Contract Amount</span>
+          <span className="text-sm text-text-primary font-normal break-words">{formatCurrency(financing.totalContractAmount)}</span>
+        </div>
+      )}
 
-      <div className="flex justify-between items-baseline py-6 border-b border-gray-700">
-        <span className="text-sm uppercase tracking-wide text-gray-400">Dealer Fee Amount</span>
-        <span className="text-base text-white font-normal">{formatCurrency(financing.dealerFeeAmount)}</span>
-      </div>
+      {hasValue(financing.dealerFeeAmount) && (
+        <div className="flex flex-col md:grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 md:items-baseline py-6 border-b border-text-muted">
+          <span className="text-base uppercase tracking-wide text-text-muted">Dealer Fee Amount</span>
+          <span className="text-sm text-text-primary font-normal break-words">{formatCurrency(financing.dealerFeeAmount)}</span>
+        </div>
+      )}
     </div>
   );
 }

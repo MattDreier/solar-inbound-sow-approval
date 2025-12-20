@@ -2,13 +2,52 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  /* Color values */
-  --background: #181819;      /* rgb(24, 24, 25) */
-  --foreground: #fafafa;      /* rgb(250, 250, 250) */
-  --card: #1f1f1f;
-  --border: #2a2a2a;
-  --muted: #8c8e99;           /* rgb(140, 142, 153) */
+@layer base {
+  :root {
+    /* Light mode colors */
+    --color-bg: 255 255 255;              /* Pure white */
+    --color-surface: 249 250 251;         /* gray-50 */
+    --color-card: 255 255 255;            /* white */
+    --color-border: 229 231 235;          /* gray-200 */
+    --color-hover: 243 244 246;           /* gray-100 */
+
+    --color-text-primary: 17 24 39;       /* gray-900 */
+    --color-text-secondary: 75 85 99;     /* gray-600 */
+    --color-text-tertiary: 107 114 128;   /* gray-500 */
+    --color-text-muted: 156 163 175;      /* gray-400 */
+
+    /* Commission section - Light mode */
+    --color-commission-bg: 253 242 248;   /* pink-50 */
+    --color-commission-border: 251 207 232; /* pink-200 */
+    --color-commission-text: 21 128 61;   /* green-700 - dark green for light mode */
+
+    /* Legacy variables for body */
+    --background: rgb(255, 255, 255);
+    --foreground: rgb(17, 24, 39);
+  }
+
+  .dark {
+    /* Dark mode colors (existing) */
+    --color-bg: 24 24 25;                 /* #181819 */
+    --color-surface: 26 26 26;            /* #1a1a1a */
+    --color-card: 31 31 31;               /* #1f1f1f */
+    --color-border: 42 42 42;             /* #2a2a2a */
+    --color-hover: 36 36 36;              /* #242424 */
+
+    --color-text-primary: 250 250 250;    /* #fafafa */
+    --color-text-secondary: 229 229 231;  /* #e5e5e7 */
+    --color-text-tertiary: 215 216 224;   /* #d7d8e0 */
+    --color-text-muted: 140 142 153;      /* #8c8e99 */
+
+    /* Commission section - Dark mode */
+    --color-commission-bg: 45 27 46;      /* #2d1b2e */
+    --color-commission-border: 74 45 75;  /* #4a2d4b */
+    --color-commission-text: 74 222 128;  /* green-400 - light green for dark mode */
+
+    /* Legacy variables for body */
+    --background: rgb(24, 24, 25);
+    --foreground: rgb(250, 250, 250);
+  }
 }
 
 * {
@@ -73,4 +112,37 @@ body {
     mask-composite: exclude;
     pointer-events: none;
   }
+
+  /* Glow animation for red dot */
+  @keyframes glow {
+    0%, 100% {
+      box-shadow:
+        0 0 1px 0.5px rgba(239, 68, 68, 0.5),
+        0 0 2px 1px rgba(239, 68, 68, 0.3),
+        0 0 3px 1.5px rgba(239, 68, 68, 0.15);
+    }
+    25% {
+      box-shadow:
+        0 0 2px 1px rgba(239, 68, 68, 0.7),
+        0 0 4px 2px rgba(239, 68, 68, 0.5),
+        0 0 6px 2px rgba(239, 68, 68, 0.25);
+    }
+    50% {
+      box-shadow:
+        0 0 3px 1.5px rgba(239, 68, 68, 1),
+        0 0 6px 3px rgba(239, 68, 68, 0.7),
+        0 0 9px 4px rgba(239, 68, 68, 0.4);
+    }
+    75% {
+      box-shadow:
+        0 0 2px 1px rgba(239, 68, 68, 0.7),
+        0 0 4px 2px rgba(239, 68, 68, 0.5),
+        0 0 6px 2px rgba(239, 68, 68, 0.25);
+    }
+  }
+
+  .animate-glow {
+    animation: glow 3s ease-in-out infinite;
+  }
+
 }

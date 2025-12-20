@@ -19,21 +19,21 @@ export function AddersSection({ data }: AddersSectionProps) {
   return (
     <div className="space-y-0">
       {adderEntries.length === 0 ? (
-        <p className="text-sm text-gray-400 py-6">No adders for this project</p>
+        <p className="text-sm text-text-muted py-6">No adders for this project</p>
       ) : (
         <>
           {adderEntries.map(({ label, value }) => (
-            <div key={label} className="flex justify-between items-baseline py-6 border-b border-gray-700">
-              <span className="text-sm uppercase tracking-wide text-gray-400">{label}</span>
-              <span className="text-base text-white font-normal">
+            <div key={label} className="flex flex-col md:grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 md:items-baseline py-6 border-b border-text-muted">
+              <span className="text-base uppercase tracking-wide text-text-muted">{label}</span>
+              <span className="text-sm text-text-primary font-normal break-words">
                 {formatCurrency(value)}
               </span>
             </div>
           ))}
 
-          <div className="flex justify-between items-baseline py-6 border-b border-gray-700">
-            <span className="text-sm uppercase tracking-wide text-gray-400">Total Adders</span>
-            <span className="text-base text-white font-normal">
+          <div className="flex flex-col md:grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 md:items-baseline py-6 border-b border-text-muted">
+            <span className="text-base uppercase tracking-wide text-text-muted">Total Adders</span>
+            <span className="text-sm text-text-primary font-normal break-words">
               {formatCurrency(adders.addersTotal)}
             </span>
           </div>

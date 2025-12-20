@@ -59,3 +59,8 @@ export function formatAdderLabel(key: string): string {
     .join(' ')
     .trim();
 }
+
+// Check if a value should be displayed (not null/undefined/empty)
+export function hasValue(value: string | number | null | undefined): boolean {
+  return value !== null && value !== undefined && value !== '';
+}

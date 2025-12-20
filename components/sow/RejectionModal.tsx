@@ -59,53 +59,44 @@ export function RejectionModal({
         <div>
           <label
             htmlFor="rejection-reason"
-            className="block text-sm font-medium text-light-secondary mb-3"
+            className="block text-sm font-medium text-text-secondary mb-3"
           >
             Reason for Rejection
           </label>
           <textarea
             id="rejection-reason"
             rows={6}
-            className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary resize-none ${
-              errors.reason ? 'border-red-500' : 'border-dark-border'
+            className={`w-full px-3 py-2 border focus:outline-none focus:ring-2 focus:ring-primary resize-none ${
+              errors.reason ? 'border-status-rejected' : 'border-border'
             }`}
             placeholder="Please provide a detailed reason for rejecting this scope of work..."
             disabled={isLoading}
             {...register('reason')}
           />
           <div className="flex justify-between items-start mt-2">
-            <p className="text-sm text-light-muted">
+            <p className="text-sm text-text-muted">
               This will be sent to the design team.
             </p>
             <p
               className={`text-sm ${
-                characterCount > 2000 ? 'text-red-500' : 'text-light-muted'
+                characterCount > 2000 ? 'text-status-rejected' : 'text-text-muted'
               }`}
             >
               {characterCount}/2000
             </p>
           </div>
           {errors.reason && (
-            <p className="text-sm text-red-500 mt-2">{errors.reason.message}</p>
+            <p className="text-sm text-status-rejected mt-2">{errors.reason.message}</p>
           )}
         </div>
 
-        <div className="flex gap-4 pt-6">
-          <Button
-            type="button"
-            variant="secondary"
-            onClick={handleClose}
-            disabled={isLoading}
-            className="flex-1"
-          >
-            Cancel
-          </Button>
+        <div className="pt-6 w-full">
           <Button
             type="submit"
-            variant="danger"
+            variant="primary"
             isLoading={isLoading}
             disabled={!isValid || isLoading}
-            className="flex-1"
+            className="w-full text-sm py-1 text-left pl-4 border-2 border-transparent dark:!bg-white dark:!text-gray-900 dark:hover:!bg-gray-100"
           >
             Submit Rejection
           </Button>

@@ -1,5 +1,5 @@
 import { SOWData } from '@/lib/types';
-import { formatValue } from '@/lib/utils';
+import { hasValue } from '@/lib/utils';
 
 interface SystemDetailsSectionProps {
   data: SOWData;
@@ -10,40 +10,54 @@ export function SystemDetailsSection({ data }: SystemDetailsSectionProps) {
 
   return (
     <div className="space-y-0">
-      <div className="flex justify-between items-baseline py-6 border-b border-gray-700">
-        <span className="text-sm uppercase tracking-wide text-gray-400">System Size</span>
-        <span className="text-base text-white font-normal">{formatValue(system.size)} kW</span>
-      </div>
+      {hasValue(system.size) && (
+        <div className="flex flex-col md:grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 md:items-baseline py-6 border-b border-text-muted">
+          <span className="text-base uppercase tracking-wide text-text-muted">System Size</span>
+          <span className="text-sm text-text-primary font-normal break-words">{system.size} kW</span>
+        </div>
+      )}
 
-      <div className="flex justify-between items-baseline py-6 border-b border-gray-700">
-        <span className="text-sm uppercase tracking-wide text-gray-400">Panel Type</span>
-        <span className="text-base text-white font-normal">{formatValue(system.panelType)}</span>
-      </div>
+      {hasValue(system.panelType) && (
+        <div className="flex flex-col md:grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 md:items-baseline py-6 border-b border-text-muted">
+          <span className="text-base uppercase tracking-wide text-text-muted">Panel Type</span>
+          <span className="text-sm text-text-primary font-normal break-words">{system.panelType}</span>
+        </div>
+      )}
 
-      <div className="flex justify-between items-baseline py-6 border-b border-gray-700">
-        <span className="text-sm uppercase tracking-wide text-gray-400">Panel Count</span>
-        <span className="text-base text-white font-normal">{formatValue(system.panelCount)}</span>
-      </div>
+      {hasValue(system.panelCount) && (
+        <div className="flex flex-col md:grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 md:items-baseline py-6 border-b border-text-muted">
+          <span className="text-base uppercase tracking-wide text-text-muted">Panel Count</span>
+          <span className="text-sm text-text-primary font-normal break-words">{system.panelCount}</span>
+        </div>
+      )}
 
-      <div className="flex justify-between items-baseline py-6 border-b border-gray-700">
-        <span className="text-sm uppercase tracking-wide text-gray-400">Inverter Type</span>
-        <span className="text-base text-white font-normal">{formatValue(system.inverterType)}</span>
-      </div>
+      {hasValue(system.inverterType) && (
+        <div className="flex flex-col md:grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 md:items-baseline py-6 border-b border-text-muted">
+          <span className="text-base uppercase tracking-wide text-text-muted">Inverter Type</span>
+          <span className="text-sm text-text-primary font-normal break-words">{system.inverterType}</span>
+        </div>
+      )}
 
-      <div className="flex justify-between items-baseline py-6 border-b border-gray-700">
-        <span className="text-sm uppercase tracking-wide text-gray-400">Inverter Count</span>
-        <span className="text-base text-white font-normal">{formatValue(system.inverterCount)}</span>
-      </div>
+      {hasValue(system.inverterCount) && (
+        <div className="flex flex-col md:grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 md:items-baseline py-6 border-b border-text-muted">
+          <span className="text-base uppercase tracking-wide text-text-muted">Inverter Count</span>
+          <span className="text-sm text-text-primary font-normal break-words">{system.inverterCount}</span>
+        </div>
+      )}
 
-      <div className="flex justify-between items-baseline py-6 border-b border-gray-700">
-        <span className="text-sm uppercase tracking-wide text-gray-400">Battery Type</span>
-        <span className="text-base text-white font-normal">{formatValue(system.batteryType)}</span>
-      </div>
+      {hasValue(system.batteryType) && (
+        <div className="flex flex-col md:grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 md:items-baseline py-6 border-b border-text-muted">
+          <span className="text-base uppercase tracking-wide text-text-muted">Battery Type</span>
+          <span className="text-sm text-text-primary font-normal break-words">{system.batteryType}</span>
+        </div>
+      )}
 
-      <div className="flex justify-between items-baseline py-6 border-b border-gray-700">
-        <span className="text-sm uppercase tracking-wide text-gray-400">Battery Count</span>
-        <span className="text-base text-white font-normal">{formatValue(system.batteryCount)}</span>
-      </div>
+      {hasValue(system.batteryCount) && (
+        <div className="flex flex-col md:grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 md:items-baseline py-6 border-b border-text-muted">
+          <span className="text-base uppercase tracking-wide text-text-muted">Battery Count</span>
+          <span className="text-sm text-text-primary font-normal break-words">{system.batteryCount}</span>
+        </div>
+      )}
     </div>
   );
 }

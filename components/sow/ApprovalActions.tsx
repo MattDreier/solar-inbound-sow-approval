@@ -22,16 +22,16 @@ export function ApprovalActions({
         onClick={onApprove}
         isLoading={isLoading}
         disabled={isLoading}
-        className="w-full text-lg"
+        className="w-full text-sm py-1 text-left pl-4 border-2 border-transparent"
       >
         Approve
       </Button>
       <Button
-        variant="danger"
+        variant="secondary"
         onClick={onReject}
         isLoading={isLoading}
         disabled={isLoading}
-        className="w-full"
+        className="w-full text-sm py-1 text-left pl-4"
       >
         Reject
       </Button>
