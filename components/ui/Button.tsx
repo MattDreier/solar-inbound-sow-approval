@@ -15,8 +15,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         className={cn(
           'px-8 py-3.5 rounded-none font-normal text-body transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed relative overflow-hidden group',
           {
-            'bg-white text-gray-900 hover:bg-gray-100 dark:bg-dark-bg dark:text-white dark:hover:bg-dark-hover': variant === 'primary',
-            'bg-transparent text-white hover:bg-white/10 border-2 border-white dark:bg-transparent dark:text-black dark:hover:bg-black/5 dark:border-black': variant === 'secondary' || variant === 'danger',
+            'bg-white text-gray-900 dark:bg-dark-bg dark:text-white border-2 border-transparent hover:border-amber-500 before:absolute before:inset-0 before:bg-amber-500 before:-translate-x-full before:transition-transform before:duration-300 before:ease-out hover:before:translate-x-0 hover:text-gray-900 dark:hover:text-gray-900': variant === 'primary',
+            'bg-transparent text-white border-2 border-white dark:bg-transparent dark:text-black dark:border-black before:absolute before:inset-0 before:bg-amber-500 before:-translate-x-full before:transition-transform before:duration-300 before:ease-out hover:before:translate-x-0 hover:text-gray-900 hover:border-amber-500 dark:hover:text-gray-900 dark:hover:border-amber-500': variant === 'secondary' || variant === 'danger',
           },
           className
         )}
@@ -24,7 +24,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {isLoading ? (
-          <span className="flex items-center gap-2">
+          <span className="relative z-10 flex items-center gap-2">
             <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
               <circle
                 className="opacity-25"
@@ -44,7 +44,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             {children}
           </span>
         ) : (
-          children
+          <span className="relative z-10">{children}</span>
         )}
       </button>
     );

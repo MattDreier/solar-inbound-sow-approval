@@ -81,7 +81,7 @@ const config: Config = {
         'container': '1440px', // Grafit's container max-width
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Arial', 'sans-serif'],
+        sans: ['var(--font-figtree)', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Arial', 'sans-serif'],
       },
       animation: {
         'ping-slow': 'ping 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',

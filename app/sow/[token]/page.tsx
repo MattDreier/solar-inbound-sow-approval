@@ -506,7 +506,7 @@ export default function SOWPage() {
                     className="text-[37.54px] leading-[45.05px] text-text-primary font-normal tracking-normal flex justify-between items-center mt-8 lg:mt-[100px] mb-8"
                   >
                     <span>Approve</span>
-                    <span>→</span>
+                    <span style={{ fontFamily: 'var(--font-hedvig)' }}>→</span>
                   </h2>
                   <div className="border-b border-text-muted"></div>
                   <p className="text-[11px] text-status-rejected mt-3 mb-0 font-bold">

@@ -1,11 +1,18 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Figtree, Hedvig_Letters_Sans } from 'next/font/google';
 import './globals.css';
 import { Providers } from './providers';
 
-const inter = Inter({
+const figtree = Figtree({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['500'],
+  variable: '--font-figtree',
+});
+
+const hedvigLettersSans = Hedvig_Letters_Sans({
+  subsets: ['latin'],
+  weight: ['400'],
+  variable: '--font-hedvig',
 });
 
 export const metadata: Metadata = {
@@ -24,7 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={`${figtree.variable} ${figtree.className} ${hedvigLettersSans.variable}`}>
         <Providers>{children}</Providers>
       </body>
     </html>

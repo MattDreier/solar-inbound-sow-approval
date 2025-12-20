@@ -39,7 +39,7 @@ export function ApprovalModal({
             onClick={handleConfirm}
             isLoading={isLoading}
             disabled={isLoading}
-            className="w-full text-sm py-1 text-left pl-4 border-2 border-transparent !bg-gray-900 !text-white hover:!bg-gray-800 dark:!bg-white dark:!text-gray-900 dark:hover:!bg-gray-100"
+            className="w-full text-sm py-1 text-left pl-4 bg-gray-900 text-white dark:bg-white dark:text-gray-900"
           >
             Submit Approval
           </Button>
