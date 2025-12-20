@@ -25,6 +25,7 @@ import {
 
 import { ApprovalActions } from '@/components/sow/ApprovalActions';
 import { RejectionModal } from '@/components/sow/RejectionModal';
+import { ApprovalModal } from '@/components/sow/ApprovalModal';
 
 export default function SOWPage() {
   const params = useParams();
@@ -41,6 +42,7 @@ export default function SOWPage() {
   const [dataError, setDataError] = useState<string | null>(null);
   const [actionLoading, setActionLoading] = useState(false);
   const [showRejectionModal, setShowRejectionModal] = useState(false);
+  const [showApprovalModal, setShowApprovalModal] = useState(false);
 
   // Sticky sidebar state
   const [isSticky, setIsSticky] = useState(false);
@@ -175,6 +177,9 @@ export default function SOWPage() {
         approvedAt: result.approvedAt,
         approvedBy: sowData.salesRep.email,
       });
+
+      // Close modal
+      setShowApprovalModal(false);
     } catch (err) {
       alert('Failed to approve SOW. Please try again.');
     } finally {
@@ -381,8 +386,8 @@ export default function SOWPage() {
             {/* Large status/action section at bottom */}
             <div className="pt-8 lg:pt-20 pb-8 lg:pb-[310px]">
               {isPending ? (
-                // Pending: Show "Approve" text (non-clickable)
-                <>
+                // Pending: Show "Approve" text (non-clickable) - hidden on mobile
+                <div className="hidden lg:block">
                   <h2 className="text-[37.54px] leading-[45.05px] text-text-primary font-normal tracking-normal flex justify-between items-center mt-8 lg:mt-[100px] mb-8">
                     <span>Approve</span>
                     <span>→</span>
@@ -391,7 +396,7 @@ export default function SOWPage() {
                   <p className="text-[11px] text-status-rejected mt-3 mb-0 font-bold">
                     THIS IS SUBJECT TO CHANGE AFTER PRE-PRODUCTION UPLOAD AND INSTALLATION
                   </p>
-                </>
+                </div>
               ) : sowData.status === 'approved' ? (
                 // Approved: Show approval details
                 <>
@@ -443,7 +448,7 @@ export default function SOWPage() {
                 <div className="mb-6">
                   <div className="flex items-center gap-1.5 mb-10">
                     <span className="flex items-center justify-center h-3 w-3 flex-shrink-0">
-                      <span className="animate-glow relative inline-flex rounded-full h-1.5 w-1.5 bg-status-rejected"></span>
+                      <span className="animate-glow relative inline-flex rounded-full h-1.5 w-1.5 bg-status-pending"></span>
                     </span>
                     <span className="text-[10px] text-white dark:text-dark-bg uppercase leading-[12px] font-normal">
                       Action Required
@@ -458,7 +463,7 @@ export default function SOWPage() {
                 </div>
                 <ApprovalActions
                   token={token}
-                  onApprove={handleApprove}
+                  onApprove={() => setShowApprovalModal(true)}
                   onReject={() => setShowRejectionModal(true)}
                   isLoading={actionLoading}
                 />
@@ -472,6 +477,14 @@ export default function SOWPage() {
           )}
         </div>
       </Container>
+
+      {/* Approval Modal */}
+      <ApprovalModal
+        isOpen={showApprovalModal}
+        onClose={() => setShowApprovalModal(false)}
+        onConfirm={handleApprove}
+        isLoading={actionLoading}
+      />
 
       {/* Rejection Modal */}
       <RejectionModal
