@@ -1,6 +1,6 @@
 import { SOWData } from '@/lib/types';
 import { formatDate } from '@/lib/utils';
-import { Card } from '@/components/ui/card';
+import { Card } from '@/components/ui/Card';
 
 interface StatusBadgeProps {
   data: SOWData;

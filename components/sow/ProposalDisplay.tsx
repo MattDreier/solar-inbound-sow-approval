@@ -1,5 +1,5 @@
 import { SOWData } from '@/lib/types';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/Card';
 import Image from 'next/image';
 
 interface ProposalDisplayProps {
