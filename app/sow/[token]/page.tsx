@@ -280,7 +280,7 @@ export default function SOWPage() {
           {/* Left: Customer Info - 5 columns */}
           <div className="lg:col-span-5 flex flex-col justify-between">
             {/* Breadcrumb at top */}
-            <p className="text-[15.43px] leading-[23.15px] text-light-muted uppercase tracking-normal mb-0 font-normal">
+            <p className="text-[11px] leading-[23.15px] text-light-muted uppercase tracking-normal mb-0 font-normal">
               SCOPE OF WORK &nbsp;&nbsp;›&nbsp;&nbsp; {sowData.customer.address.toUpperCase()}
             </p>
 
@@ -290,7 +290,7 @@ export default function SOWPage() {
                 {sowData.customer.name}
               </h1>
 
-              <div className="inline-block px-2 py-1 bg-[rgb(23,23,25)] text-light-primary text-[11.66px] leading-[11.66px] font-medium uppercase tracking-normal border border-[rgb(61,62,69)] mt-[44.69px] mb-2">
+              <div className="inline-block px-2 py-1 bg-[rgb(23,23,25)] text-light-primary text-[11.66px] leading-[16px] font-medium uppercase tracking-normal border border-[rgb(61,62,69)] mt-[44.69px] mb-2">
                 Solar Installation
               </div>
 
@@ -348,9 +348,9 @@ export default function SOWPage() {
               <CommissionSection data={sowData} />
             </section>
 
-            {/* Proposal & Plans */}
+            {/* Plans */}
             <section className="space-y-6">
-              <h2 className="text-heading-3 text-light-primary font-normal">Proposal & Plans</h2>
+              <h2 className="text-heading-3 text-light-primary font-normal">Plans</h2>
               <PlanDisplay data={sowData} />
             </section>
 
