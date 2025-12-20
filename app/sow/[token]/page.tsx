@@ -315,7 +315,7 @@ export default function SOWPage() {
               </h1>
 
               <div className="inline-block px-2 py-1 bg-card text-text-primary text-[11.66px] leading-[16px] font-medium uppercase tracking-normal border border-border mt-[44.69px] mb-2">
-                Solar Installation
+                SOLAR PROJECT
               </div>
 
               <p className="text-[17.32px] leading-[25.99px] text-text-primary font-medium tracking-normal">
@@ -378,8 +378,8 @@ export default function SOWPage() {
               <PlanDisplay data={sowData} />
             </section>
 
-            {/* Large status/action section at bottom - Desktop only */}
-            <div className="hidden lg:block pt-8 lg:pt-20 pb-4 lg:pb-[calc(60vh-6rem)]">
+            {/* Large status/action section at bottom */}
+            <div className="pt-8 lg:pt-20 pb-4 lg:pb-[calc(60vh-6rem)]">
               {isPending ? (
                 // Pending: Show "Approve" text (non-clickable)
                 <>
@@ -409,15 +409,18 @@ export default function SOWPage() {
               ) : (
                 // Rejected: Show rejection details
                 <>
-                  <h2 className="text-[37.54px] leading-[45.05px] text-text-primary font-normal tracking-normal mt-8 lg:mt-[100px]">
-                    Rejected
+                  <h2 className="text-[37.54px] leading-[45.05px] text-status-rejected font-normal tracking-normal mt-8 lg:mt-[100px]">
+                    REJECTED
                   </h2>
                   <div className="pt-6 border-b border-text-muted"></div>
-                  <p className="text-[11px] text-text-primary mt-3 font-normal">
-                    {formatDate(sowData.rejectedAt)}
+                  <p className="text-[11px] text-gray-500 mt-3 font-normal uppercase">
+                    BY {sowData.salesRep.email}
+                  </p>
+                  <p className="text-[11px] text-gray-500 font-normal uppercase">
+                    ON {formatDate(sowData.rejectedAt)}
                   </p>
                   {sowData.rejectionReason && (
-                    <p className="text-[11px] text-text-secondary mt-2 font-normal">
+                    <p className="text-[11px] text-white mt-2 font-normal">
                       Reason: {sowData.rejectionReason}
                     </p>
                   )}
