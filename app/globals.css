@@ -145,4 +145,27 @@ body {
     animation: glow 3s ease-in-out infinite;
   }
 
+  /* Arrow bump animation - pulls back left then shoots right like a slingshot */
+  @keyframes bump-right {
+    0% {
+      transform: translateX(0);
+    }
+    35% {
+      transform: translateX(-20px);
+    }
+    65% {
+      transform: translateX(28px);
+    }
+    85% {
+      transform: translateX(-3px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  .animate-bump-right {
+    animation: bump-right 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
 }

@@ -41,7 +41,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         className={cn(
           'px-8 py-3.5 rounded-none font-normal text-body transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed relative overflow-hidden group',
           {
-            'bg-white text-gray-900 dark:bg-dark-bg dark:text-white before:absolute before:inset-0 before:bg-amber-500 before:-translate-x-full before:transition-transform before:duration-300 before:ease-out hover:before:translate-x-0 hover:text-gray-900 dark:hover:text-gray-900': variant === 'primary',
+            'bg-white text-gray-900 border-2 border-transparent dark:bg-dark-bg dark:text-white overflow-visible before:absolute before:inset-[-2px] before:bg-amber-500 before:[clip-path:inset(0_100%_0_0)] before:transition-[clip-path] before:duration-300 before:ease-out hover:before:[clip-path:inset(0)] hover:text-gray-900 dark:hover:text-gray-900 after:absolute after:inset-[-2px] after:border-2 after:border-amber-500 after:pointer-events-none after:[clip-path:inset(0_100%_0_0)] after:transition-[clip-path] after:duration-300 after:ease-out hover:after:[clip-path:inset(0)]': variant === 'primary',
             'bg-transparent text-white border-2 border-white dark:bg-transparent dark:text-black dark:border-black overflow-visible before:absolute before:inset-[-2px] before:border-2 before:border-amber-500 before:[clip-path:inset(0_100%_0_0)] before:transition-[clip-path] before:duration-300 before:ease-out hover:before:[clip-path:inset(0)]': isSecondary,
           },
           className
@@ -57,7 +57,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           {/* Amber text overlay for secondary - positioned exactly on top */}
           {isSecondary && (
             <span
-              className="absolute inset-0 text-amber-500 [clip-path:inset(0_100%_0_0)] group-hover:[clip-path:inset(0)] transition-[clip-path] duration-300 ease-out"
+              className="absolute inset-0 text-amber-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
               aria-hidden="true"
             >
               {content}

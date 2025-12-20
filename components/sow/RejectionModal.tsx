@@ -96,7 +96,7 @@ export function RejectionModal({
             variant="primary"
             isLoading={isLoading}
             disabled={!isValid || isLoading}
-            className="w-full text-sm py-1 text-left pl-4 bg-gray-900 text-white dark:bg-white dark:text-gray-900"
+            className="w-full text-sm py-1 text-left pl-4 min-h-[61.5px] lg:min-h-0 bg-gray-900 text-white dark:bg-white dark:text-gray-900"
           >
             Submit Rejection
           </Button>

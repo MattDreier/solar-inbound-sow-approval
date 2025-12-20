@@ -23,10 +23,10 @@ export function ApprovalModal({
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Approve Scope of Work">
       <div className="space-y-6">
+        <p className="text-sm text-status-pending font-bold mb-3">
+          IMPORTANT DISCLAIMER
+        </p>
         <div className="bg-status-pending/15 border border-status-pending/15 p-4">
-          <p className="text-sm text-status-pending font-bold mb-3">
-            IMPORTANT DISCLAIMER
-          </p>
           <p className="text-sm text-text-secondary leading-relaxed">
             This scope of work is subject to change after pre-production upload and installation.
             By approving, you acknowledge that modifications may be required during the installation process.
@@ -39,7 +39,7 @@ export function ApprovalModal({
             onClick={handleConfirm}
             isLoading={isLoading}
             disabled={isLoading}
-            className="w-full text-sm py-1 text-left pl-4 bg-gray-900 text-white dark:bg-white dark:text-gray-900"
+            className="w-full text-sm py-1 text-left pl-4 min-h-[61.5px] lg:min-h-0 bg-gray-900 text-white dark:bg-white dark:text-gray-900"
           >
             Submit Approval
           </Button>

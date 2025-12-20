@@ -56,6 +56,10 @@ export default function SOWPage() {
   const spacerHeightRef = useRef(0); // Store current spacer for calculation
   const isCalculatingRef = useRef(false);
 
+  // Arrow bump animation state
+  const [arrowBump, setArrowBump] = useState(false);
+  const wasAtBottomRef = useRef(false);
+
   // Detect when sidebar becomes sticky using sentinel element
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -184,6 +188,36 @@ export default function SOWPage() {
       resizeObserver.disconnect();
     };
   }, [sowData, calculateAlignment]);
+
+  // Detect when user scrolls to bottom and trigger arrow bump animation
+  useEffect(() => {
+    if (!sowData || sowData.status !== 'pending') return;
+    if (typeof window === 'undefined') return;
+
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+
+      // Check if at bottom (within 5px threshold)
+      const isAtBottom = scrollTop + windowHeight >= documentHeight - 5;
+
+      // Trigger bump only when first reaching the bottom
+      if (isAtBottom && !wasAtBottomRef.current) {
+        setArrowBump(true);
+        // Reset animation after it completes
+        setTimeout(() => setArrowBump(false), 300);
+      }
+
+      wasAtBottomRef.current = isAtBottom;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [sowData]);
 
   // Load SOW data after PIN verification
   useEffect(() => {
@@ -506,7 +540,10 @@ export default function SOWPage() {
                     className="text-[37.54px] leading-[45.05px] text-text-primary font-normal tracking-normal flex justify-between items-center mt-8 lg:mt-[100px] mb-8"
                   >
                     <span>Approve</span>
-                    <span style={{ fontFamily: 'var(--font-hedvig)' }}>→</span>
+                    <span
+                      className={`inline-block ${arrowBump ? 'animate-bump-right' : ''}`}
+                      style={{ fontFamily: 'var(--font-hedvig)' }}
+                    >→</span>
                   </h2>
                   <div className="border-b border-text-muted"></div>
                   <p className="text-[11px] text-status-rejected mt-3 mb-0 font-bold">
