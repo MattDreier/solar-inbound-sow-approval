@@ -8,6 +8,7 @@ import { Header } from '@/components/layout/Header';
 import { Container } from '@/components/layout/Container';
 import { PinInput } from '@/components/ui/PinInput';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
+import { LazySection } from '@/components/ui/LazySection';
 import { API_ENDPOINTS } from '@/lib/constants';
 import { getSOWState, saveSOWState } from '@/lib/storage';
 import { formatDate } from '@/lib/utils';
@@ -59,6 +60,34 @@ export default function SOWPage() {
   // Arrow bump animation state
   const [arrowBump, setArrowBump] = useState(false);
   const wasAtBottomRef = useRef(false);
+
+  // PIN entry animation state
+  const [pinEntryAnimated, setPinEntryAnimated] = useState(false);
+  const [pinExiting, setPinExiting] = useState(false);
+  const [sowContentAnimated, setSowContentAnimated] = useState(false);
+
+  // Trigger PIN entry animation on mount
+  useEffect(() => {
+    if (!isVerified && !pinExiting) {
+      // Small delay to ensure DOM is ready
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setPinEntryAnimated(true);
+        });
+      });
+    }
+  }, [isVerified, pinExiting]);
+
+  // Trigger SOW content animation after verification
+  useEffect(() => {
+    if (isVerified && sowData && !isLoadingData) {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          setSowContentAnimated(true);
+        });
+      });
+    }
+  }, [isVerified, sowData, isLoadingData]);
 
   // Detect when sidebar becomes sticky using sentinel element
   useEffect(() => {
@@ -274,8 +303,11 @@ export default function SOWPage() {
       const data: VerifyPinResponse = await response.json();
 
       if (data.valid) {
-        // PIN verified - show SOW content
-        setIsVerified(true);
+        // PIN verified - trigger exit animation, then show SOW content
+        setPinExiting(true);
+        setTimeout(() => {
+          setIsVerified(true);
+        }, 600); // Wait for exit animation to complete
       } else {
         // Show error message
         setPinError(data.error || 'Incorrect PIN. Please try again.');
@@ -388,7 +420,15 @@ export default function SOWPage() {
       <div className="min-h-screen bg-bg">
         <Header />
         <Container className="flex items-center justify-center min-h-[calc(100vh-88px)]">
-          <div className="w-full max-w-md">
+          <div
+            className={`w-full max-w-md transition-all ease-out ${
+              pinExiting
+                ? 'opacity-0 scale-95 -translate-y-6 duration-500'
+                : pinEntryAnimated
+                  ? 'opacity-100 translate-y-0 scale-100 duration-500'
+                  : 'opacity-0 translate-y-8 scale-100 duration-500'
+            }`}
+          >
             <div className="bg-card/50 border border-border/40 p-12 backdrop-blur-sm">
               <div className="text-center mb-12">
                 <h1 className="text-heading-1 text-text-primary mb-4 font-light tracking-tight">
@@ -420,7 +460,9 @@ export default function SOWPage() {
       <div className="min-h-screen bg-bg">
         <Header />
         <Container className="flex items-center justify-center min-h-[calc(100vh-88px)]">
-          <LoadingSpinner size="lg" />
+          <div className="animate-fade-in">
+            <LoadingSpinner size="lg" />
+          </div>
         </Container>
       </div>
     );
@@ -450,7 +492,13 @@ export default function SOWPage() {
     <div className="min-h-screen bg-bg">
       <Header />
       <Container className="max-w-7xl">
-
+        <div
+          className={`transition-all duration-500 ease-out ${
+            sowContentAnimated
+              ? 'opacity-100 translate-y-0'
+              : 'opacity-0 translate-y-6'
+          }`}
+        >
         {/* Hero Section - Grafit-inspired layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch pb-16 pt-8">
           {/* Left: Customer Info - 5 columns */}
@@ -494,41 +542,51 @@ export default function SOWPage() {
           {/* Main Content */}
           <div className="space-y-12 lg:space-y-24">
 
-            {/* Deal Details */}
+            {/* Deal Details - loads immediately */}
             <section className="space-y-6">
               <h2 className="text-heading-3 text-text-primary font-normal">Deal Details</h2>
               <DealDetailsSection data={sowData} />
             </section>
 
-            {/* System Details */}
-            <section className="space-y-6">
-              <h2 className="text-heading-3 text-text-primary font-normal">System Specifications</h2>
-              <SystemDetailsSection data={sowData} />
-            </section>
+            {/* System Details - lazy loaded */}
+            <LazySection minHeight="180px">
+              <section className="space-y-6">
+                <h2 className="text-heading-3 text-text-primary font-normal">System Specifications</h2>
+                <SystemDetailsSection data={sowData} />
+              </section>
+            </LazySection>
 
-            {/* Financing */}
-            <section className="space-y-6">
-              <h2 className="text-heading-3 text-text-primary font-normal">Financing Details</h2>
-              <FinancingSection data={sowData} />
-            </section>
+            {/* Financing - lazy loaded */}
+            <LazySection minHeight="200px">
+              <section className="space-y-6">
+                <h2 className="text-heading-3 text-text-primary font-normal">Financing Details</h2>
+                <FinancingSection data={sowData} />
+              </section>
+            </LazySection>
 
-            {/* Adders */}
-            <section className="space-y-6">
-              <h2 className="text-heading-3 text-text-primary font-normal">Additional Items</h2>
-              <AddersSection data={sowData} />
-            </section>
+            {/* Adders - lazy loaded */}
+            <LazySection minHeight="300px">
+              <section className="space-y-6">
+                <h2 className="text-heading-3 text-text-primary font-normal">Additional Items</h2>
+                <AddersSection data={sowData} />
+              </section>
+            </LazySection>
 
-            {/* Commission (highlighted) */}
-            <section className="space-y-6">
-              <h2 className="text-heading-3 text-text-primary font-normal">Commission Breakdown</h2>
-              <CommissionSection data={sowData} />
-            </section>
+            {/* Commission (highlighted) - lazy loaded */}
+            <LazySection minHeight="200px">
+              <section className="space-y-6">
+                <h2 className="text-heading-3 text-text-primary font-normal">Commission Breakdown</h2>
+                <CommissionSection data={sowData} />
+              </section>
+            </LazySection>
 
-            {/* Plans */}
-            <section className="space-y-6">
-              <h2 className="text-heading-3 text-text-primary font-normal">Plans</h2>
-              <PlanDisplay data={sowData} />
-            </section>
+            {/* Plans - lazy loaded */}
+            <LazySection minHeight="400px">
+              <section className="space-y-6">
+                <h2 className="text-heading-3 text-text-primary font-normal">Plans</h2>
+                <PlanDisplay data={sowData} />
+              </section>
+            </LazySection>
 
             {/* Large status/action section at bottom */}
             <div className="pt-8 lg:pt-20 pb-8">
@@ -634,6 +692,7 @@ export default function SOWPage() {
               </p>
             </div>
           )}
+        </div>
         </div>
       </Container>
 

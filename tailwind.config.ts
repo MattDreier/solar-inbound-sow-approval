@@ -83,11 +83,19 @@ const config: Config = {
       fontFamily: {
         sans: ['var(--font-figtree)', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Arial', 'sans-serif'],
       },
+      transitionDuration: {
+        '400': '400ms',
+      },
       animation: {
         'ping-slow': 'ping 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'glow': 'glow 3s ease-in-out infinite',
+        'fade-in': 'fadeIn 300ms ease-out forwards',
       },
       keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
         glow: {
           '0%, 100%': {
             boxShadow: '0 0 3px 1px rgba(239, 68, 68, 0.5), 0 0 6px 2px rgba(239, 68, 68, 0.3), 0 0 9px 3px rgba(239, 68, 68, 0.15)',

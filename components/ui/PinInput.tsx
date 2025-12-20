@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, KeyboardEvent, ClipboardEvent, ChangeEvent } from 'react';
+import { useState, useRef, useEffect, KeyboardEvent, ClipboardEvent, ChangeEvent } from 'react';
 import { cn } from '@/lib/utils';
 import { PIN_LENGTH } from '@/lib/constants';
 
@@ -13,6 +13,17 @@ interface PinInputProps {
 export function PinInput({ onComplete, error, isLoading }: PinInputProps) {
   const [pins, setPins] = useState<string[]>(Array(PIN_LENGTH).fill(''));
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  // Clear fields and focus first input on error
+  useEffect(() => {
+    if (error) {
+      setPins(Array(PIN_LENGTH).fill(''));
+      // Small delay to ensure state updates before focusing
+      requestAnimationFrame(() => {
+        inputRefs.current[0]?.focus();
+      });
+    }
+  }, [error]);
 
   const handleChange = (index: number, value: string) => {
     // Only allow digits
