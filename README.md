@@ -94,7 +94,7 @@ lib/
 
 This is a **fully functional prototype** with mock data:
 
-- **Demo SOW** based on real solar installation for Petar Garov
+- **Demo SOW** with fictional customer data for demonstration purposes
 - **localStorage** stores approval/rejection state
 - **No database** - all data is hardcoded in `lib/mockData.ts`
 - **No session persistence** - PIN required on every visit

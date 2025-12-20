@@ -14,15 +14,15 @@ export const MOCK_SOW_DATA: Record<string, SOWData> = {
     rejectionReason: null,
 
     customer: {
-      name: 'Petar Garov',
-      phone: '(727) 555-0123',
-      email: 'petar.garov@example.com',
-      address: '3612 37TH ST N, St. Petersburg, FL 33713'
+      name: 'John Anderson',
+      phone: '(555) 123-4567',
+      email: 'john.anderson@example.com',
+      address: '1234 Sunshine Blvd, Tampa, FL 33602'
     },
 
     salesRep: {
-      name: 'Steve Reed',
-      email: 'steve.reed@lunexpower.com'
+      name: 'Hunter',
+      email: 'hunter@sunvena.com'
     },
 
     setter: 'John Setter',

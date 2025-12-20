@@ -27,7 +27,7 @@ npm run lint
 **Testing the Prototype:**
 - Navigate to: `http://localhost:3000/sow/demo-token-abc123xyz789`
 - Enter PIN: `1234` (4 digits)
-- The demo data is based on a real solar installation for Petar Garov
+- The demo data uses fictional customer information for demonstration purposes
 
 ## Working with Claude Code
 
