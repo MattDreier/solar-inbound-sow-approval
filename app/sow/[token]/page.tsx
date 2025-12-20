@@ -338,7 +338,7 @@ export default function SOWPage() {
         </div>
 
         {/* Two-column layout: Main content + Sticky sidebar */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_233px] gap-16 pb-28">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_233px] gap-16 pb-36">
           {/* Main Content */}
           <div className="space-y-8 lg:space-y-20">
 
@@ -387,7 +387,7 @@ export default function SOWPage() {
                     <span>Approve</span>
                     <span>→</span>
                   </h2>
-                  <div className="pt-3 border-b border-text-muted"></div>
+                  <div className="pt-6 border-b border-text-muted"></div>
                   <p className="text-[11px] text-status-rejected mt-3 font-bold">
                     THIS IS SUBJECT TO CHANGE AFTER PRE-PRODUCTION UPLOAD AND INSTALLATION
                   </p>
@@ -398,7 +398,7 @@ export default function SOWPage() {
                   <h2 className="text-[37.54px] leading-[45.05px] text-status-approved font-normal tracking-normal mt-8 lg:mt-[100px]">
                     APPROVED
                   </h2>
-                  <div className="pt-3 border-b border-text-muted"></div>
+                  <div className="pt-6 border-b border-text-muted"></div>
                   <p className="text-[11px] text-gray-500 mt-3 font-normal uppercase">
                     BY {sowData.approvedBy}
                   </p>
@@ -412,7 +412,7 @@ export default function SOWPage() {
                   <h2 className="text-[37.54px] leading-[45.05px] text-text-primary font-normal tracking-normal mt-8 lg:mt-[100px]">
                     Rejected
                   </h2>
-                  <div className="pt-3 border-b border-text-muted"></div>
+                  <div className="pt-6 border-b border-text-muted"></div>
                   <p className="text-[11px] text-text-primary mt-3 font-normal">
                     {formatDate(sowData.rejectedAt)}
                   </p>
