@@ -384,7 +384,7 @@ export default function SOWPage() {
             </section>
 
             {/* Large status/action section at bottom */}
-            <div className="pt-8 lg:pt-20 pb-8 lg:pb-[310px]">
+            <div className="pt-8 lg:pt-20 pb-8 lg:pb-[315px]">
               {isPending ? (
                 // Pending: Show "Approve" text (non-clickable) - hidden on mobile
                 <div className="hidden lg:block">
