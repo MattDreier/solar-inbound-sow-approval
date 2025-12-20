@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
@@ -49,6 +49,13 @@ export default function SOWPage() {
   const sentinelRef = useRef<HTMLDivElement>(null);
   const { resolvedTheme } = useTheme();
 
+  // Refs for dynamic scroll alignment
+  const approveHeadingRef = useRef<HTMLHeadingElement>(null);
+  const approveButtonRef = useRef<HTMLButtonElement>(null);
+  const [bottomSpacerHeight, setBottomSpacerHeight] = useState(0);
+  const spacerHeightRef = useRef(0); // Store current spacer for calculation
+  const isCalculatingRef = useRef(false);
+
   // Detect when sidebar becomes sticky using sentinel element
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -71,6 +78,112 @@ export default function SOWPage() {
       }
     };
   }, []);
+
+  // Calculate dynamic spacer height for perfect alignment at max scroll
+  const calculateAlignment = useCallback(() => {
+    // Only run on desktop (lg breakpoint = 1024px)
+    if (typeof window === 'undefined' || window.innerWidth < 1024) {
+      spacerHeightRef.current = 0;
+      setBottomSpacerHeight(0);
+      return;
+    }
+
+    const heading = approveHeadingRef.current;
+    const button = approveButtonRef.current;
+
+    if (!heading || !button || isCalculatingRef.current) return;
+
+    isCalculatingRef.current = true;
+
+    // Use requestAnimationFrame to ensure DOM has settled
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const viewportHeight = window.innerHeight;
+        const currentSpacer = spacerHeightRef.current;
+
+        // Get heading's position in the document
+        const headingRect = heading.getBoundingClientRect();
+        const headingDocY = headingRect.top + window.scrollY;
+        const headingCenterDocY = headingDocY + headingRect.height / 2;
+
+        // Get button's position relative to its sticky container
+        // When sidebar is sticky at top: 61.5px, we need to find the button's
+        // offset within the sidebar to calculate its sticky viewport position
+        const sidebarContainer = button.closest('[class*="lg:sticky"]') as HTMLElement;
+
+        if (!sidebarContainer) {
+          isCalculatingRef.current = false;
+          return;
+        }
+
+        // Calculate button's Y position when sidebar is stuck
+        // The sidebar sticks at top: 61.5px
+        const HEADER_HEIGHT = 61.5;
+        const sidebarRect = sidebarContainer.getBoundingClientRect();
+        const buttonRect = button.getBoundingClientRect();
+
+        // Button's offset from the top of the sidebar container
+        const buttonOffsetInSidebar = buttonRect.top - sidebarRect.top;
+
+        // When sidebar is sticky, the button's viewport Y position will be:
+        const buttonStickyViewportY = HEADER_HEIGHT + buttonOffsetInSidebar;
+        const buttonStickyCenterY = buttonStickyViewportY + buttonRect.height / 2;
+
+        // Calculate total document height (minus current spacer)
+        const totalDocHeight = document.documentElement.scrollHeight;
+        const contentHeightWithoutSpacer = totalDocHeight - currentSpacer;
+
+        // At max scroll (without spacer):
+        // maxScrollY = contentHeightWithoutSpacer - viewportHeight
+        // headingViewportY = headingCenterDocY - maxScrollY
+        const maxScrollYWithoutSpacer = contentHeightWithoutSpacer - viewportHeight;
+        const headingViewportYAtMaxScroll = headingCenterDocY - maxScrollYWithoutSpacer;
+
+        // We want heading to be at buttonStickyCenterY at max scroll
+        // Difference tells us how much extra spacer we need
+        const difference = headingViewportYAtMaxScroll - buttonStickyCenterY;
+
+        // If heading would be below the button at max scroll, we need a spacer
+        // If heading would be above (difference < 0), we need to reduce scroll range
+        // We achieve this by setting spacer height
+        const newSpacerHeight = Math.max(0, difference);
+
+        if (Math.abs(newSpacerHeight - currentSpacer) > 1) {
+          spacerHeightRef.current = newSpacerHeight;
+          setBottomSpacerHeight(newSpacerHeight);
+        }
+
+        isCalculatingRef.current = false;
+      });
+    });
+  }, []); // No dependencies - uses refs for current values
+
+  // Run alignment calculation on mount, resize, and when data loads
+  useEffect(() => {
+    if (!sowData || sowData.status !== 'pending') return;
+
+    // Initial calculation after a short delay to ensure layout is complete
+    const initialTimeout = setTimeout(calculateAlignment, 100);
+
+    // Recalculate on resize (handles zoom and window size changes)
+    const handleResize = () => {
+      calculateAlignment();
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // Use ResizeObserver to detect zoom/font size changes
+    const resizeObserver = new ResizeObserver(() => {
+      calculateAlignment();
+    });
+    resizeObserver.observe(document.documentElement);
+
+    return () => {
+      clearTimeout(initialTimeout);
+      window.removeEventListener('resize', handleResize);
+      resizeObserver.disconnect();
+    };
+  }, [sowData, calculateAlignment]);
 
   // Load SOW data after PIN verification
   useEffect(() => {
@@ -384,11 +497,14 @@ export default function SOWPage() {
             </section>
 
             {/* Large status/action section at bottom */}
-            <div className="pt-8 lg:pt-20 pb-8 lg:pb-[500px]">
+            <div className="pt-8 lg:pt-20 pb-8">
               {isPending ? (
                 // Pending: Show "Approve" text (non-clickable) - hidden on mobile
                 <div className="hidden lg:block">
-                  <h2 className="text-[37.54px] leading-[45.05px] text-text-primary font-normal tracking-normal flex justify-between items-center mt-8 lg:mt-[100px] mb-8">
+                  <h2
+                    ref={approveHeadingRef}
+                    className="text-[37.54px] leading-[45.05px] text-text-primary font-normal tracking-normal flex justify-between items-center mt-8 lg:mt-[100px] mb-8"
+                  >
                     <span>Approve</span>
                     <span>→</span>
                   </h2>
@@ -396,6 +512,11 @@ export default function SOWPage() {
                   <p className="text-[11px] text-status-rejected mt-3 mb-0 font-bold">
                     THIS IS SUBJECT TO CHANGE AFTER PRE-PRODUCTION UPLOAD AND INSTALLATION
                   </p>
+                  {/* Dynamic spacer for perfect alignment at max scroll */}
+                  <div
+                    style={{ height: bottomSpacerHeight }}
+                    aria-hidden="true"
+                  />
                 </div>
               ) : sowData.status === 'approved' ? (
                 // Approved: Show approval details
@@ -462,6 +583,7 @@ export default function SOWPage() {
                   </p>
                 </div>
                 <ApprovalActions
+                  ref={approveButtonRef}
                   token={token}
                   onApprove={() => setShowApprovalModal(true)}
                   onReject={() => setShowRejectionModal(true)}
