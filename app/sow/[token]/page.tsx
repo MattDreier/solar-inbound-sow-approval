@@ -240,7 +240,7 @@ export default function SOWPage() {
             <div className="bg-card/50 border border-border/40 p-12 backdrop-blur-sm">
               <div className="text-center mb-12">
                 <h1 className="text-heading-1 text-text-primary mb-4 font-light tracking-tight">
-                  Scope of Work Review
+                  Scope of Work
                 </h1>
                 <p className="text-body-lg text-text-secondary mb-2">
                   Enter your PIN to view this SOW
