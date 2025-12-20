@@ -458,7 +458,7 @@ export default function SOWPage() {
         {/* Two-column layout: Main content + Sticky sidebar */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_233px] gap-16 pb-24">
           {/* Main Content */}
-          <div className="space-y-8 lg:space-y-20">
+          <div className="space-y-12 lg:space-y-24">
 
             {/* Deal Details */}
             <section className="space-y-6">

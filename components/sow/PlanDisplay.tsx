@@ -28,7 +28,7 @@ export function PlanDisplay({ data }: PlanDisplayProps) {
           download
           target="_blank"
           rel="noopener noreferrer"
-          className="block w-full px-4 py-1 bg-gray-900 text-white hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-100 transition-all duration-300 text-sm text-left font-normal"
+          className="flex items-center w-full px-4 py-1 min-h-[61.5px] bg-dark-bg text-white hover:bg-dark-hover dark:bg-white dark:text-black dark:hover:bg-gray-100 transition-all duration-300 text-sm text-left font-normal"
         >
           Download Plan PDF
         </a>

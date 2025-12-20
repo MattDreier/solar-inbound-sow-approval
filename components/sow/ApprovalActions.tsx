@@ -20,7 +20,7 @@ export const ApprovalActions = forwardRef<HTMLButtonElement, ApprovalActionsProp
           onClick={onApprove}
           isLoading={isLoading}
           disabled={isLoading}
-          className="w-full text-sm py-1 text-left pl-4 border-2 border-transparent"
+          className="w-full text-sm py-1 text-left pl-4 border-2 border-transparent min-h-[61.5px] lg:min-h-0"
         >
           Approve
         </Button>
@@ -29,7 +29,7 @@ export const ApprovalActions = forwardRef<HTMLButtonElement, ApprovalActionsProp
           onClick={onReject}
           isLoading={isLoading}
           disabled={isLoading}
-          className="w-full text-sm py-1 text-left pl-4"
+          className="w-full text-sm py-1 text-left pl-4 min-h-[61.5px] lg:min-h-0"
         >
           Reject
         </Button>

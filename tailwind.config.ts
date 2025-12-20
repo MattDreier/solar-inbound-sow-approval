@@ -62,14 +62,14 @@ const config: Config = {
       },
       fontSize: {
         // Grafit-inspired typography scale
-        'display': ['3.5rem', { lineHeight: '1.1', fontWeight: '400', letterSpacing: '-0.02em' }],
-        'heading-1': ['2.375rem', { lineHeight: '1.2', fontWeight: '400', letterSpacing: '-0.01em' }],
-        'heading-2': ['1.875rem', { lineHeight: '1.3', fontWeight: '400' }],
-        'heading-3': ['1.4375rem', { lineHeight: '1.2', fontWeight: '400' }],
-        'body-lg': ['1.125rem', { lineHeight: '1.5', fontWeight: '400' }],
-        'body': ['1rem', { lineHeight: '1.5', fontWeight: '400' }],
-        'body-sm': ['0.875rem', { lineHeight: '1.5', fontWeight: '400' }],
-        'label': ['0.75rem', { lineHeight: '1.4', fontWeight: '400', letterSpacing: '0.05em' }],
+        'display': ['3.5rem', { lineHeight: '1.1', fontWeight: '300', letterSpacing: '-0.02em' }],
+        'heading-1': ['2.375rem', { lineHeight: '1.2', fontWeight: '300', letterSpacing: '-0.01em' }],
+        'heading-2': ['1.875rem', { lineHeight: '1.3', fontWeight: '300' }],
+        'heading-3': ['1.4375rem', { lineHeight: '1.2', fontWeight: '300' }],
+        'body-lg': ['1.125rem', { lineHeight: '1.5', fontWeight: '300' }],
+        'body': ['1rem', { lineHeight: '1.5', fontWeight: '300' }],
+        'body-sm': ['0.875rem', { lineHeight: '1.5', fontWeight: '300' }],
+        'label': ['0.75rem', { lineHeight: '1.4', fontWeight: '300', letterSpacing: '0.05em' }],
       },
       spacing: {
         '18': '4.5rem',
