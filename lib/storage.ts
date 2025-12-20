@@ -35,3 +35,16 @@ export function clearSOWState(token: string): void {
     console.error('Failed to clear SOW state:', error);
   }
 }
+
+// Clear ALL SOW states from localStorage (for testing)
+export function clearAllSOWStates(): void {
+  if (typeof window === 'undefined') return;
+  try {
+    const keys = Object.keys(localStorage);
+    const sowKeys = keys.filter((key) => key.startsWith(STORAGE_KEY_PREFIX));
+    sowKeys.forEach((key) => localStorage.removeItem(key));
+    console.log(`[Testing] Cleared ${sowKeys.length} SOW state(s) from localStorage`);
+  } catch (error) {
+    console.error('Failed to clear all SOW states:', error);
+  }
+}

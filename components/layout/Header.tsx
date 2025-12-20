@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { clearAllSOWStates } from '@/lib/storage';
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -22,6 +23,13 @@ export function Header() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // TEMPORARY: Clear localStorage for testing
+  const handleLogoClick = () => {
+    clearAllSOWStates();
+    alert('localStorage cleared! Refresh the page to reset the SOW state.');
+    window.location.reload();
+  };
 
   // Prevent hydration mismatch
   if (!mounted) {
@@ -42,8 +50,13 @@ export function Header() {
             ${isScrolled ? 'border-gray-400' : 'border-transparent'}
           `}
         >
-          {/* Logo */}
-          <div className="flex items-center gap-3">
+          {/* Logo - TEMPORARY: Click to clear localStorage */}
+          <button
+            onClick={handleLogoClick}
+            className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity"
+            type="button"
+            title="[Testing] Click to clear localStorage"
+          >
             <div className="relative h-10 w-10">
               <Image
                 src="/sunvena-favicon.png"
@@ -64,7 +77,7 @@ export function Header() {
             >
               SunVena
             </span>
-          </div>
+          </button>
 
           {/* Theme Toggle */}
           <ThemeToggle isScrolled={isScrolled} />
