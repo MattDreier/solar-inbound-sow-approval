@@ -9,25 +9,22 @@ export function PlanDisplay({ data }: PlanDisplayProps) {
   return (
     <Card>
       <CardContent>
-        <div className="space-y-6">
-          {/* PDF Viewer for desktop */}
-          <div className="hidden md:block">
-            <div className="w-full h-[600px] border border-dark-border rounded-md overflow-hidden bg-dark-surface">
-              <iframe
-                src={data.planFileUrl}
-                className="w-full h-full"
-                title="Installation Plan PDF"
-              />
-            </div>
+        {/* PDF Viewer for desktop */}
+        <div className="hidden md:block">
+          <div className="w-full h-[600px] border border-dark-border rounded-md overflow-hidden bg-dark-surface">
+            <iframe
+              src={data.planFileUrl}
+              className="w-full h-full"
+              title="Installation Plan PDF"
+            />
           </div>
+        </div>
 
-          {/* Download link for mobile and as backup */}
-          <div className="md:hidden">
-            <p className="text-sm text-light-tertiary mb-5">
-              PDF viewer is not available on mobile devices.
-            </p>
-          </div>
-
+        {/* Download link for mobile */}
+        <div className="md:hidden">
+          <p className="text-sm text-light-tertiary mb-5">
+            PDF viewer is not available on mobile devices.
+          </p>
           <a
             href={data.planFileUrl}
             download

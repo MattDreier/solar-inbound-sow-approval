@@ -18,7 +18,6 @@ import {
   FinancingSection,
   AddersSection,
   CommissionSection,
-  ProposalDisplay,
   PlanDisplay,
   DisclaimerSection,
   StatusBadge,
@@ -319,61 +318,40 @@ export default function SOWPage() {
           {/* Main Content */}
           <div className="space-y-20">
 
-            {/* 01 Deal Details */}
+            {/* Deal Details */}
             <section className="space-y-6">
-              <div className="flex items-baseline gap-5">
-                <span className="text-label text-light-muted font-normal">01</span>
-                <h2 className="text-heading-3 text-light-primary font-normal">Deal Details</h2>
-              </div>
+              <h2 className="text-heading-3 text-light-primary font-normal">Deal Details</h2>
               <DealDetailsSection data={sowData} />
             </section>
 
-            {/* 02 System Details */}
+            {/* System Details */}
             <section className="space-y-6">
-              <div className="flex items-baseline gap-5">
-                <span className="text-label text-light-muted font-normal">02</span>
-                <h2 className="text-heading-3 text-light-primary font-normal">System Specifications</h2>
-              </div>
+              <h2 className="text-heading-3 text-light-primary font-normal">System Specifications</h2>
               <SystemDetailsSection data={sowData} />
             </section>
 
-            {/* 03 Financing */}
+            {/* Financing */}
             <section className="space-y-6">
-              <div className="flex items-baseline gap-5">
-                <span className="text-label text-light-muted font-normal">03</span>
-                <h2 className="text-heading-3 text-light-primary font-normal">Financing Details</h2>
-              </div>
+              <h2 className="text-heading-3 text-light-primary font-normal">Financing Details</h2>
               <FinancingSection data={sowData} />
             </section>
 
-            {/* 04 Adders */}
+            {/* Adders */}
             <section className="space-y-6">
-              <div className="flex items-baseline gap-5">
-                <span className="text-label text-light-muted font-normal">04</span>
-                <h2 className="text-heading-3 text-light-primary font-normal">Additional Items</h2>
-              </div>
+              <h2 className="text-heading-3 text-light-primary font-normal">Additional Items</h2>
               <AddersSection data={sowData} />
             </section>
 
-            {/* 05 Commission (highlighted) */}
+            {/* Commission (highlighted) */}
             <section className="space-y-6">
-              <div className="flex items-baseline gap-5">
-                <span className="text-label text-light-muted font-normal">05</span>
-                <h2 className="text-heading-3 text-light-primary font-normal">Commission Breakdown</h2>
-              </div>
+              <h2 className="text-heading-3 text-light-primary font-normal">Commission Breakdown</h2>
               <CommissionSection data={sowData} />
             </section>
 
-            {/* 06 Proposal & Plans */}
+            {/* Proposal & Plans */}
             <section className="space-y-6">
-              <div className="flex items-baseline gap-5">
-                <span className="text-label text-light-muted font-normal">06</span>
-                <h2 className="text-heading-3 text-light-primary font-normal">Proposal & Plans</h2>
-              </div>
-              <div className="space-y-6">
-                <ProposalDisplay data={sowData} />
-                <PlanDisplay data={sowData} />
-              </div>
+              <h2 className="text-heading-3 text-light-primary font-normal">Proposal & Plans</h2>
+              <PlanDisplay data={sowData} />
             </section>
 
             {/* Disclaimer */}

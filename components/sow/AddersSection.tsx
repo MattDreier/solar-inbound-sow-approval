@@ -1,6 +1,5 @@
 import { SOWData } from '@/lib/types';
 import { formatCurrency, formatAdderLabel } from '@/lib/utils';
-import { Card, CardContent } from '@/components/ui/card';
 
 interface AddersSectionProps {
   data: SOWData;
@@ -18,32 +17,28 @@ export function AddersSection({ data }: AddersSectionProps) {
     }));
 
   return (
-    <Card>
-      <CardContent>
-        {adderEntries.length === 0 ? (
-          <p className="text-body-sm text-light-muted">No adders for this project</p>
-        ) : (
-          <div className="space-y-4">
-            {adderEntries.map(({ label, value }) => (
-              <div key={label} className="flex justify-between items-baseline gap-8">
-                <span className="text-body-sm text-light-muted">{label}</span>
-                <span className="text-body text-light-primary text-right">
-                  {formatCurrency(value)}
-                </span>
-              </div>
-            ))}
-
-            <div className="border-t border-dark-border/40 mt-6 pt-6">
-              <div className="flex justify-between items-baseline gap-8">
-                <span className="text-body text-light-secondary">Total Adders</span>
-                <span className="text-body-lg text-light-primary font-medium text-right">
-                  {formatCurrency(adders.addersTotal)}
-                </span>
-              </div>
+    <div className="space-y-0">
+      {adderEntries.length === 0 ? (
+        <p className="text-sm text-gray-400 py-6">No adders for this project</p>
+      ) : (
+        <>
+          {adderEntries.map(({ label, value }) => (
+            <div key={label} className="flex justify-between items-baseline py-6 border-b border-gray-700">
+              <span className="text-sm uppercase tracking-wide text-gray-400">{label}</span>
+              <span className="text-base text-white font-normal">
+                {formatCurrency(value)}
+              </span>
             </div>
+          ))}
+
+          <div className="flex justify-between items-baseline py-6 border-b border-gray-700">
+            <span className="text-sm uppercase tracking-wide text-gray-400">Total Adders</span>
+            <span className="text-base text-white font-normal">
+              {formatCurrency(adders.addersTotal)}
+            </span>
           </div>
-        )}
-      </CardContent>
-    </Card>
+        </>
+      )}
+    </div>
   );
 }
