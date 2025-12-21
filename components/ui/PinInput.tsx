@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect, KeyboardEvent, ClipboardEvent, ChangeEvent } from 'react';
+import { useState, useRef, useEffect, KeyboardEvent, ClipboardEvent, ChangeEvent, MouseEvent } from 'react';
 import { cn } from '@/lib/utils';
 import { PIN_LENGTH } from '@/lib/constants';
 
@@ -13,6 +13,24 @@ interface PinInputProps {
 export function PinInput({ onComplete, error, isLoading }: PinInputProps) {
   const [pins, setPins] = useState<string[]>(Array(PIN_LENGTH).fill(''));
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const blurTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Calculate the index of the first empty input (the "active" input)
+  const getActiveIndex = () => {
+    const firstEmptyIndex = pins.findIndex(pin => pin === '');
+    return firstEmptyIndex === -1 ? PIN_LENGTH - 1 : firstEmptyIndex;
+  };
+
+  // Auto-focus the first input on mount
+  useEffect(() => {
+    if (!isLoading) {
+      requestAnimationFrame(() => {
+        inputRefs.current[0]?.focus();
+      });
+    }
+  }, [isLoading]);
 
   // Clear fields and focus first input on error
   useEffect(() => {
@@ -25,7 +43,31 @@ export function PinInput({ onComplete, error, isLoading }: PinInputProps) {
     }
   }, [error]);
 
+  // Cleanup blur timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (blurTimeoutRef.current) {
+        clearTimeout(blurTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  // Focus the active input when clicking anywhere in the container
+  const handleContainerClick = (e: MouseEvent<HTMLDivElement>) => {
+    if (isLoading) return;
+
+    // Don't interfere if clicking directly on an input
+    if ((e.target as HTMLElement).tagName === 'INPUT') return;
+
+    const activeIndex = getActiveIndex();
+    inputRefs.current[activeIndex]?.focus();
+  };
+
   const handleChange = (index: number, value: string) => {
+    // Only allow input in the active field
+    const activeIndex = getActiveIndex();
+    if (index !== activeIndex) return;
+
     // Only allow digits
     if (value && !/^\d$/.test(value)) return;
 
@@ -33,9 +75,12 @@ export function PinInput({ onComplete, error, isLoading }: PinInputProps) {
     newPins[index] = value;
     setPins(newPins);
 
-    // Auto-advance to next input
+    // Auto-advance to next input after state updates
     if (value && index < PIN_LENGTH - 1) {
-      inputRefs.current[index + 1]?.focus();
+      // Use requestAnimationFrame to ensure state has updated before focusing
+      requestAnimationFrame(() => {
+        inputRefs.current[index + 1]?.focus();
+      });
     }
 
     // Auto-submit when all digits entered
@@ -62,12 +107,16 @@ export function PinInput({ onComplete, error, isLoading }: PinInputProps) {
       }
     }
 
-    // Handle arrow keys
+    // Handle arrow keys - only allow navigation to filled inputs or the active input
     if (e.key === 'ArrowLeft' && index > 0) {
       inputRefs.current[index - 1]?.focus();
     }
     if (e.key === 'ArrowRight' && index < PIN_LENGTH - 1) {
-      inputRefs.current[index + 1]?.focus();
+      const activeIndex = getActiveIndex();
+      // Only allow moving right to the active input
+      if (index + 1 <= activeIndex) {
+        inputRefs.current[index + 1]?.focus();
+      }
     }
   };
 
@@ -87,34 +136,115 @@ export function PinInput({ onComplete, error, isLoading }: PinInputProps) {
     }
   };
 
+  // Prevent focusing non-active inputs
+  const handleFocus = (index: number, e: React.FocusEvent<HTMLInputElement>) => {
+    const activeIndex = getActiveIndex();
+
+    // If trying to focus a future input (past the active one), redirect to active
+    if (index > activeIndex) {
+      e.preventDefault();
+      inputRefs.current[activeIndex]?.focus();
+    }
+  };
+
+  // Prevent default focus behavior on mousedown for non-active inputs
+  const handleMouseDown = (index: number, e: MouseEvent<HTMLInputElement>) => {
+    const activeIndex = getActiveIndex();
+
+    // Clear any pending blur timeout when clicking
+    if (blurTimeoutRef.current) {
+      clearTimeout(blurTimeoutRef.current);
+      blurTimeoutRef.current = null;
+    }
+
+    // If clicking any non-active input, prevent focus and redirect to active
+    if (index !== activeIndex) {
+      e.preventDefault();
+      inputRefs.current[activeIndex]?.focus();
+    }
+  };
+
+  // Auto-refocus when input loses focus
+  const handleBlur = () => {
+    if (isLoading) return;
+
+    // Clear any existing timeout
+    if (blurTimeoutRef.current) {
+      clearTimeout(blurTimeoutRef.current);
+    }
+
+    // Set a short timeout to refocus - this allows clicks to work properly
+    blurTimeoutRef.current = setTimeout(() => {
+      const activeIndex = getActiveIndex();
+      inputRefs.current[activeIndex]?.focus();
+    }, 100);
+  };
+
+  // Click anywhere in the wrapper to focus active input
+  const handleWrapperClick = (e: MouseEvent<HTMLDivElement>) => {
+    if (isLoading) return;
+
+    // Clear blur timeout if clicking
+    if (blurTimeoutRef.current) {
+      clearTimeout(blurTimeoutRef.current);
+      blurTimeoutRef.current = null;
+    }
+
+    const activeIndex = getActiveIndex();
+    inputRefs.current[activeIndex]?.focus();
+  };
+
+  const activeIndex = getActiveIndex();
+
   return (
-    <div className="space-y-5">
-      <div className="flex gap-3 justify-center">
-        {pins.map((pin, index) => (
-          <input
-            key={index}
-            ref={el => { inputRefs.current[index] = el; }}
-            type="text"
-            inputMode="numeric"
-            maxLength={1}
-            value={pin}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(index, e.target.value)}
-            onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => handleKeyDown(index, e)}
-            onPaste={handlePaste}
-            disabled={isLoading}
-            className={cn(
-              'w-12 h-14 text-center text-2xl font-semibold border-2 rounded-lg',
-              'text-text-primary bg-card',
-              'focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent',
-              'transition-all',
-              error
-                ? 'border-status-rejected'
-                : 'border-border',
-              isLoading && 'opacity-50 cursor-not-allowed'
-            )}
-            autoFocus={index === 0}
-          />
-        ))}
+    <div
+      ref={wrapperRef}
+      onClick={handleWrapperClick}
+      className="space-y-5 cursor-text"
+    >
+      <div
+        ref={containerRef}
+        onClick={handleContainerClick}
+        className="flex gap-3 justify-center"
+      >
+        {pins.map((pin, index) => {
+          const isActive = index === activeIndex;
+          const isFilled = pin !== '';
+
+          return (
+            <input
+              key={index}
+              ref={el => { inputRefs.current[index] = el; }}
+              type="text"
+              inputMode="numeric"
+              maxLength={1}
+              value={pin}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(index, e.target.value)}
+              onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => handleKeyDown(index, e)}
+              onPaste={handlePaste}
+              onFocus={(e) => handleFocus(index, e)}
+              onBlur={handleBlur}
+              onMouseDown={(e) => handleMouseDown(index, e)}
+              disabled={isLoading}
+              readOnly={!isActive && isFilled}
+              className={cn(
+                'w-12 h-14 text-center text-2xl font-semibold border-2 rounded-lg',
+                'text-text-primary bg-card',
+                'transition-all duration-150',
+                error
+                  ? 'border-status-rejected'
+                  : isActive
+                    ? 'border-primary ring-2 ring-primary/20'
+                    : 'border-border',
+                isLoading && 'opacity-50 cursor-not-allowed',
+                !isLoading && 'cursor-pointer',
+                isActive && !isLoading && 'focus:outline-none',
+                !isActive && !isFilled && 'opacity-50'
+              )}
+              autoFocus={index === 0}
+            />
+          );
+        })}
       </div>
 
       {error && (

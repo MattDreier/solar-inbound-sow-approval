@@ -40,6 +40,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-40 transition-all duration-300">
+      {/* Padding: 21px mobile, 29px tablet (780px+), 44px desktop (1024px+) */}
       <div className="max-w-container mx-auto px-[21px] md:px-[29px] lg:px-[44px] py-2.5">
         <div
           className={`

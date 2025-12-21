@@ -166,8 +166,8 @@ export default function SOWPage() {
 
   // Calculate dynamic spacer height for perfect alignment at max scroll
   const calculateAlignment = useCallback(() => {
-    // Only run on desktop (lg breakpoint = 1024px)
-    if (typeof window === 'undefined' || window.innerWidth < 1024) {
+    // Only run on desktop (md breakpoint = 780px)
+    if (typeof window === 'undefined' || window.innerWidth < 780) {
       spacerHeightRef.current = 0;
       setBottomSpacerHeight(0);
       return;
@@ -194,7 +194,7 @@ export default function SOWPage() {
         // Get button's position relative to its sticky container
         // When sidebar is sticky at top: 61.5px, we need to find the button's
         // offset within the sidebar to calculate its sticky viewport position
-        const sidebarContainer = button.closest('[class*="lg:sticky"]') as HTMLElement;
+        const sidebarContainer = button.closest('[class*="md:sticky"]') as HTMLElement;
 
         if (!sidebarContainer) {
           isCalculatingRef.current = false;
@@ -502,7 +502,7 @@ export default function SOWPage() {
     return (
       <div className="min-h-screen bg-bg">
         <Header />
-        <Container className="flex items-center justify-center min-h-[calc(100vh-88px)]">
+        <Container className="flex items-center justify-center min-h-[calc(100vh-88px)] cursor-text">
           <div
             className={`w-full max-w-md transition-all ease-out ${
               pinExiting
@@ -512,7 +512,7 @@ export default function SOWPage() {
                   : 'opacity-0 translate-y-8 scale-100 duration-500'
             }`}
           >
-            <div className="bg-card/50 border border-border/40 p-12 backdrop-blur-sm">
+            <div className="bg-card/50 border border-border/40 p-12 backdrop-blur-sm cursor-auto">
               <div className="text-center mb-12">
                 <h1 className="text-heading-1 text-text-primary mb-4 font-light tracking-tight">
                   Scope of Work
@@ -576,9 +576,9 @@ export default function SOWPage() {
       <Header />
       <Container className="max-w-7xl">
         {/* Hero Section - Grafit-inspired layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch pb-16 pt-8">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-stretch pb-16 pt-8">
           {/* Left: Customer Info - 5 columns */}
-          <div className="lg:col-span-5 flex flex-col justify-between">
+          <div className="md:col-span-5 flex flex-col justify-between">
             {/* Breadcrumb at top - Phase 3 (T=150ms, 250ms duration) */}
             <p className={`text-[11px] leading-[23.15px] text-text-muted uppercase tracking-normal mb-0 font-normal transition-all duration-[250ms] ease-out ${
               phase3Animated ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
@@ -612,14 +612,14 @@ export default function SOWPage() {
           </div>
 
           {/* Right: Proposal Image - Phase 2 (T=100ms, 450ms duration) */}
-          <div className={`lg:col-span-7 relative w-full aspect-[16/9] bg-surface overflow-hidden transition-all duration-[450ms] ease-out ${
+          <div className={`md:col-span-7 relative w-full aspect-[16/9] bg-surface overflow-hidden transition-all duration-[450ms] ease-out ${
             phase2Animated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
           }`}>
             <Image
               src={sowData.proposalImageUrl}
               alt="Solar System Proposal"
               fill
-              sizes="(max-width: 1024px) 100vw, 58vw"
+              sizes="(max-width: 780px) 100vw, 58vw"
               className="object-cover"
               priority
             />
@@ -627,9 +627,9 @@ export default function SOWPage() {
         </div>
 
         {/* Two-column layout: Main content + Sticky sidebar */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_233px] gap-16 pb-24">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_233px] gap-16 pb-24">
           {/* Main Content */}
-          <div className="space-y-12 lg:space-y-24">
+          <div className="space-y-12 md:space-y-24">
 
             {/* Deal Details - Phase 4 (T=300ms, 350ms duration) */}
             <div className={`transition-all duration-[350ms] ease-out ${
@@ -688,16 +688,16 @@ export default function SOWPage() {
             </LazySection>
 
             {/* Large status/action section at bottom */}
-            <div className="pt-8 lg:pt-20 pb-8">
+            <div className="pt-8 md:pt-20 pb-8">
               <div className={`transition-all duration-300 ease-out ${
                 statusTransitioning ? 'opacity-0 scale-[0.98]' : 'opacity-100 scale-100'
               }`}>
                 {isPending ? (
                   // Pending: Show "Approve" text (non-clickable) - hidden on mobile
-                  <div className="hidden lg:block">
+                  <div className="hidden md:block">
                     <h2
                       ref={approveHeadingRef}
-                      className="text-[37.54px] leading-[45.05px] text-text-primary font-normal tracking-normal flex justify-between items-center mt-8 lg:mt-[100px] mb-8"
+                      className="text-[37.54px] leading-[45.05px] text-text-primary font-normal tracking-normal flex justify-between items-center mt-8 md:mt-[100px] mb-8"
                     >
                       <span>Approve</span>
                       <span
@@ -718,7 +718,7 @@ export default function SOWPage() {
                 ) : sowData.status === 'approved' ? (
                   // Approved: Show approval details
                   <>
-                    <h2 className="text-[37.54px] leading-[45.05px] text-status-approved font-normal tracking-normal mt-8 lg:mt-[100px]">
+                    <h2 className="text-[37.54px] leading-[45.05px] text-status-approved font-normal tracking-normal mt-8 md:mt-[100px]">
                       APPROVED
                     </h2>
                     <div className="pt-6 border-b border-text-muted"></div>
@@ -732,7 +732,7 @@ export default function SOWPage() {
                 ) : (
                   // Rejected: Show rejection details
                   <>
-                    <h2 className="text-[37.54px] leading-[45.05px] text-status-rejected font-normal tracking-normal mt-8 lg:mt-[100px]">
+                    <h2 className="text-[37.54px] leading-[45.05px] text-status-rejected font-normal tracking-normal mt-8 md:mt-[100px]">
                       REJECTED
                     </h2>
                     <div className="pt-6 border-b border-text-muted"></div>
@@ -755,7 +755,7 @@ export default function SOWPage() {
 
           {/* Sticky Sidebar - Approval Actions - Phase 1 (T=0ms, 300ms duration) */}
           {isPending && (
-            <div className={`lg:sticky lg:top-[84px] lg:z-30 h-fit transition-all duration-300 ease-out ${
+            <div className={`md:sticky md:top-[84px] md:z-30 h-fit transition-all duration-300 ease-out ${
               phase1Animated ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
             }`}>
               {/* Sentinel element to detect sticky state */}
@@ -794,7 +794,7 @@ export default function SOWPage() {
               </div>
 
               {/* Disclaimer - Mobile only (below CTA) */}
-              <p className="lg:hidden text-[11px] text-status-rejected mt-6 font-bold text-left">
+              <p className="md:hidden text-[11px] text-status-rejected mt-6 font-bold text-left">
                 THIS IS SUBJECT TO CHANGE AFTER PRE-PRODUCTION UPLOAD AND INSTALLATION
               </p>
             </div>

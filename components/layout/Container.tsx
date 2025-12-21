@@ -12,7 +12,7 @@ export function Container({ children, className }: ContainerProps) {
       'max-w-container mx-auto py-8',
       // Grafit-inspired responsive margins
       'px-[21px]',      // Mobile: 21px
-      'md:px-[29px]',   // Tablet (768px): 29px
+      'md:px-[29px]',   // Tablet (780px+): 29px - iPad Air and larger
       'lg:px-[44px]',   // Desktop (1024px+): 44px
       className
     )}>
