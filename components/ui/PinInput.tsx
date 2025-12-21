@@ -38,14 +38,14 @@ export function PinInput({ onComplete, error, isLoading }: PinInputProps) {
     }
   }, [isLoading]);
 
-  // Clear fields and focus first input on error
+  // Clear fields and focus first input on error (works on all devices)
   useEffect(() => {
     if (error) {
       setPins(Array(PIN_LENGTH).fill(''));
-      // Small delay to ensure state updates before focusing
-      requestAnimationFrame(() => {
+      // Focus first input on error (even on mobile - user needs to retry)
+      setTimeout(() => {
         inputRefs.current[0]?.focus();
-      });
+      }, 100);
     }
   }, [error]);
 
@@ -81,9 +81,12 @@ export function PinInput({ onComplete, error, isLoading }: PinInputProps) {
     newPins[index] = value;
     setPins(newPins);
 
-    // Auto-advance to next input
+    // Auto-advance to next input (use setTimeout to ensure it works on mobile)
     if (value && index < PIN_LENGTH - 1) {
-      inputRefs.current[index + 1]?.focus();
+      // Small delay ensures the next input is ready to receive focus
+      setTimeout(() => {
+        inputRefs.current[index + 1]?.focus();
+      }, 0);
     }
 
     // Auto-submit when all digits entered
