@@ -16,6 +16,7 @@ export function PinInput({ onComplete, error, isLoading }: PinInputProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const blurTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const isTouchDeviceRef = useRef<boolean>(false);
 
   // Calculate the index of the first empty input (the "active" input)
   const getActiveIndex = () => {
@@ -23,9 +24,14 @@ export function PinInput({ onComplete, error, isLoading }: PinInputProps) {
     return firstEmptyIndex === -1 ? PIN_LENGTH - 1 : firstEmptyIndex;
   };
 
-  // Auto-focus the first input on mount
+  // Detect if this is a touch device
   useEffect(() => {
-    if (!isLoading) {
+    isTouchDeviceRef.current = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  }, []);
+
+  // Auto-focus the first input on mount (only on non-touch devices)
+  useEffect(() => {
+    if (!isLoading && !isTouchDeviceRef.current) {
       requestAnimationFrame(() => {
         inputRefs.current[0]?.focus();
       });
@@ -75,12 +81,9 @@ export function PinInput({ onComplete, error, isLoading }: PinInputProps) {
     newPins[index] = value;
     setPins(newPins);
 
-    // Auto-advance to next input after state updates
+    // Auto-advance to next input
     if (value && index < PIN_LENGTH - 1) {
-      // Use requestAnimationFrame to ensure state has updated before focusing
-      requestAnimationFrame(() => {
-        inputRefs.current[index + 1]?.focus();
-      });
+      inputRefs.current[index + 1]?.focus();
     }
 
     // Auto-submit when all digits entered
@@ -164,9 +167,12 @@ export function PinInput({ onComplete, error, isLoading }: PinInputProps) {
     }
   };
 
-  // Auto-refocus when input loses focus
+  // Auto-refocus when input loses focus (desktop only)
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     if (isLoading) return;
+
+    // Skip auto-refocus on touch devices (causes keyboard issues on mobile)
+    if (isTouchDeviceRef.current) return;
 
     // Clear any existing timeout
     if (blurTimeoutRef.current) {
