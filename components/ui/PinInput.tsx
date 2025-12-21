@@ -142,8 +142,11 @@ export function PinInput({ onComplete, error, isLoading }: PinInputProps) {
     }
   };
 
-  // Prevent focusing non-active inputs
+  // Prevent focusing non-active inputs (desktop only - mobile needs smooth auto-advance)
   const handleFocus = (index: number, e: React.FocusEvent<HTMLInputElement>) => {
+    // Skip focus prevention on touch devices to allow smooth auto-advance
+    if (isTouchDeviceRef.current) return;
+
     const activeIndex = getActiveIndex();
 
     // If trying to focus a future input (past the active one), redirect to active
@@ -153,8 +156,11 @@ export function PinInput({ onComplete, error, isLoading }: PinInputProps) {
     }
   };
 
-  // Prevent default focus behavior on mousedown for non-active inputs
+  // Prevent default focus behavior on mousedown for non-active inputs (desktop only)
   const handleMouseDown = (index: number, e: MouseEvent<HTMLInputElement>) => {
+    // Skip on touch devices to avoid interfering with mobile keyboard
+    if (isTouchDeviceRef.current) return;
+
     const activeIndex = getActiveIndex();
 
     // Clear any pending blur timeout when clicking
