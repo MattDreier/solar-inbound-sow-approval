@@ -165,12 +165,21 @@ export function PinInput({ onComplete, error, isLoading }: PinInputProps) {
   };
 
   // Auto-refocus when input loses focus
-  const handleBlur = () => {
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     if (isLoading) return;
 
     // Clear any existing timeout
     if (blurTimeoutRef.current) {
       clearTimeout(blurTimeoutRef.current);
+    }
+
+    // Check if focus is moving to another PIN input
+    const relatedTarget = e.relatedTarget as HTMLElement;
+    const isMovingToAnotherInput = relatedTarget && inputRefs.current.includes(relatedTarget as HTMLInputElement);
+
+    // Don't auto-refocus if moving between PIN inputs (auto-advance)
+    if (isMovingToAnotherInput) {
+      return;
     }
 
     // Set a short timeout to refocus - this allows clicks to work properly
