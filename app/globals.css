@@ -117,27 +117,27 @@ body {
   @keyframes glow {
     0%, 100% {
       box-shadow:
-        0 0 1px 0.5px rgba(234, 179, 8, 0.5),
-        0 0 2px 1px rgba(234, 179, 8, 0.3),
-        0 0 3px 1.5px rgba(234, 179, 8, 0.15);
+        0 0 3px 0.5px rgba(234, 179, 8, 0.5),
+        0 0 6px 2px rgba(234, 179, 8, 0.3),
+        0 0 10px 3px rgba(234, 179, 8, 0.15);
     }
     25% {
       box-shadow:
-        0 0 2px 1px rgba(234, 179, 8, 0.7),
-        0 0 4px 2px rgba(234, 179, 8, 0.5),
-        0 0 6px 2px rgba(234, 179, 8, 0.25);
+        0 0 5px 1.5px rgba(234, 179, 8, 0.7),
+        0 0 10px 3.5px rgba(234, 179, 8, 0.5),
+        0 0 16px 5px rgba(234, 179, 8, 0.25);
     }
     50% {
       box-shadow:
-        0 0 3px 1.5px rgba(234, 179, 8, 1),
-        0 0 6px 3px rgba(234, 179, 8, 0.7),
-        0 0 9px 4px rgba(234, 179, 8, 0.4);
+        0 0 6px 2px rgba(234, 179, 8, 1),
+        0 0 14px 5px rgba(234, 179, 8, 0.7),
+        0 0 22px 7px rgba(234, 179, 8, 0.4);
     }
     75% {
       box-shadow:
-        0 0 2px 1px rgba(234, 179, 8, 0.7),
-        0 0 4px 2px rgba(234, 179, 8, 0.5),
-        0 0 6px 2px rgba(234, 179, 8, 0.25);
+        0 0 5px 1.5px rgba(234, 179, 8, 0.7),
+        0 0 10px 3.5px rgba(234, 179, 8, 0.5),
+        0 0 16px 5px rgba(234, 179, 8, 0.25);
     }
   }
 
@@ -168,4 +168,21 @@ body {
     animation: bump-right 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
   }
 
+}
+
+/* Respect user's motion preferences for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Ensure smooth scrolling is disabled */
+  html {
+    scroll-behavior: auto !important;
+  }
 }

@@ -53,30 +53,19 @@ export function Header() {
           {/* Logo - TEMPORARY: Click to clear localStorage */}
           <button
             onClick={handleLogoClick}
-            className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity"
+            className="cursor-pointer hover:opacity-80 transition-opacity"
             type="button"
             title="[Testing] Click to clear localStorage"
           >
-            <div className="relative h-10 w-10">
+            <div className="relative h-16 w-32">
               <Image
-                src="/sunvena-favicon.png"
-                alt="SunVena Icon"
+                src="/sunvena-logo-new.png"
+                alt="SunVena Solar Logo"
                 fill
-                className="object-contain"
+                className="object-contain object-left"
                 priority
               />
             </div>
-            <span
-              className={`
-                text-lg transition-colors duration-300
-                ${isScrolled && isDark ? 'text-dark-bg' : ''}
-                ${isScrolled && !isDark ? 'text-white' : ''}
-                ${!isScrolled && isDark ? 'text-white' : ''}
-                ${!isScrolled && !isDark ? 'text-dark-bg' : ''}
-              `}
-            >
-              SunVena
-            </span>
           </button>
 
           {/* Theme Toggle */}
