@@ -202,8 +202,8 @@ export default function SOWPage() {
         }
 
         // Calculate button's Y position when sidebar is stuck
-        // The sidebar sticks at top: 61.5px
-        const HEADER_HEIGHT = 61.5;
+        // The sidebar sticks at top: 84px
+        const HEADER_HEIGHT = 84;
         const sidebarRect = sidebarContainer.getBoundingClientRect();
         const buttonRect = button.getBoundingClientRect();
 
@@ -755,11 +755,11 @@ export default function SOWPage() {
 
           {/* Sticky Sidebar - Approval Actions - Phase 1 (T=0ms, 300ms duration) */}
           {isPending && (
-            <div className={`lg:sticky lg:top-[61.5px] h-fit transition-all duration-300 ease-out ${
+            <div className={`lg:sticky lg:top-[84px] lg:z-30 h-fit transition-all duration-300 ease-out ${
               phase1Animated ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
             }`}>
               {/* Sentinel element to detect sticky state */}
-              <div ref={sentinelRef} className="absolute -top-[61.5px] h-0" aria-hidden="true" />
+              <div ref={sentinelRef} className="absolute -top-[84px] h-0" aria-hidden="true" />
               <div className={`
                 bg-dark-bg dark:bg-white p-8
                 border border-gray-400
