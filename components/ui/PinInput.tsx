@@ -250,7 +250,7 @@ export function PinInput({ onComplete, error, isLoading }: PinInputProps) {
               onBlur={handleBlur}
               onMouseDown={(e) => handleMouseDown(index, e)}
               disabled={isLoading}
-              readOnly={!isActive && isFilled}
+              readOnly={false}
               className={cn(
                 'w-12 h-14 text-center text-2xl font-semibold border-2 rounded-lg',
                 'text-text-primary bg-card',
