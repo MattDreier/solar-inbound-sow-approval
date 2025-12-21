@@ -502,7 +502,7 @@ export default function SOWPage() {
     return (
       <div className="min-h-screen bg-bg">
         <Header />
-        <Container className="flex items-center justify-center min-h-[calc(100vh-88px)] cursor-text">
+        <Container className="flex items-start md:items-center justify-center min-h-[calc(100vh-88px)] pt-8 md:pt-0 cursor-text">
           <div
             className={`w-full max-w-md transition-all ease-out ${
               pinExiting
