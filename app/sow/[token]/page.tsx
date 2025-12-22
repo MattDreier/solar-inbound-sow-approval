@@ -742,10 +742,10 @@ export default function SOWPage() {
                       APPROVED
                     </h2>
                     <div className="pt-6 border-b border-text-muted"></div>
-                    <p className="text-meta-compact text-gray-500 mt-3 uppercase">
+                    <p className="text-section-label text-text-muted mt-3 uppercase">
                       BY {sowData.approvedBy}
                     </p>
-                    <p className="text-meta-compact text-gray-500 uppercase">
+                    <p className="text-section-label text-text-muted uppercase">
                       ON {formatDate(sowData.approvedAt)}
                     </p>
                   </>
@@ -756,14 +756,14 @@ export default function SOWPage() {
                       REJECTED
                     </h2>
                     <div className="pt-6 border-b border-text-muted"></div>
-                    <p className="text-meta-compact text-gray-500 mt-3 uppercase">
+                    <p className="text-section-label text-text-muted mt-3 uppercase">
                       BY {sowData.salesRep.email}
                     </p>
-                    <p className="text-meta-compact text-gray-500 uppercase">
+                    <p className="text-section-label text-text-muted uppercase">
                       ON {formatDate(sowData.rejectedAt)}
                     </p>
                     {sowData.rejectionReason && (
-                      <p className="text-meta-compact text-white mt-2">
+                      <p className="text-section-value text-text-primary mt-4">
                         Reason: {sowData.rejectionReason}
                       </p>
                     )}

@@ -25,11 +25,11 @@ export function StatusBadge({ data }: StatusBadgeProps) {
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
             {statusText}
           </h1>
-          <p className="text-white text-sm md:text-base">
+          <p className="text-white text-section-label">
             {formatDate(timestamp)}
           </p>
           {actionBy && (
-            <p className="text-white text-sm md:text-base mt-1">
+            <p className="text-white text-section-label mt-1">
               by {actionBy}
             </p>
           )}
@@ -39,8 +39,8 @@ export function StatusBadge({ data }: StatusBadgeProps) {
       {!isApproved && data.rejectionReason && (
         <Card className="border-2 border-status-rejected">
           <div className="space-y-3">
-            <h3 className="font-semibold text-light-secondary">Rejection Reason:</h3>
-            <p className="text-light-secondary whitespace-pre-wrap">{data.rejectionReason}</p>
+            <h3 className="text-section-label uppercase text-text-muted">Rejection Reason</h3>
+            <p className="text-section-value text-text-primary whitespace-pre-wrap">{data.rejectionReason}</p>
           </div>
         </Card>
       )}
