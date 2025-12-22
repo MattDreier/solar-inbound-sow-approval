@@ -24,6 +24,18 @@
     /* Legacy variables for body */
     --background: rgb(250, 249, 245);
     --foreground: rgb(17, 24, 39);
+
+    /* Header dimensions - Single source of truth for sticky positioning */
+    --header-padding-y: 10px;           /* py-2.5 = 0.625rem = 10px */
+    --header-content-height: 58px;      /* h-[58px] on inner container */
+    --header-border-width: 1px;         /* Border thickness when scrolled */
+
+    /* Calculate where the VISIBLE header bar ends (not the element with padding) */
+    /* Visible bar: starts at padding-top, ends at padding-top + content-height */
+    --header-visible-bottom: calc(var(--header-padding-y) + var(--header-content-height)); /* 68px */
+
+    /* Sticky CTA offset: visible header bottom + 1 border-width gap */
+    --sticky-cta-offset: calc(var(--header-visible-bottom) + var(--header-border-width)); /* 69px */
   }
 
   .dark {

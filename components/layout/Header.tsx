@@ -6,6 +6,24 @@ import { useTheme } from 'next-themes';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { clearAllSOWStates } from '@/lib/storage';
 
+/**
+ * Header component with sticky positioning.
+ *
+ * LAYOUT STRUCTURE:
+ *   <header>                        ← sticky element
+ *     <div className="py-2.5">      ← padding wrapper (10px top + 10px bottom)
+ *       <div className="h-[58px]">  ← visible dark bar with border
+ *
+ * IMPORTANT: If you change the header dimensions (py-2.5, h-[58px], or border),
+ * you MUST update the CSS variables in globals.css:
+ *   --header-padding-y: 10px       (py-2.5 = 0.625rem = 10px)
+ *   --header-content-height: 58px  (h-[58px])
+ *   --header-border-width: 1px     (border width)
+ *
+ * The sticky CTA offset is calculated from where the VISIBLE bar ends:
+ *   visible-bottom = padding-top + content-height = 68px
+ *   sticky-offset = visible-bottom + border-width = 69px
+ */
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);

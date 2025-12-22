@@ -202,8 +202,10 @@ export default function SOWPage() {
         }
 
         // Calculate button's Y position when sidebar is stuck
-        // The sidebar sticks at top: 84px
-        const HEADER_HEIGHT = 84;
+        // Read sticky offset from CSS variable (defined in globals.css)
+        const HEADER_HEIGHT = parseFloat(
+          getComputedStyle(document.documentElement).getPropertyValue('--sticky-cta-offset')
+        ) || 69;
         const sidebarRect = sidebarContainer.getBoundingClientRect();
         const buttonRect = button.getBoundingClientRect();
 
@@ -764,11 +766,14 @@ export default function SOWPage() {
 
           {/* Sticky Sidebar - Approval Actions - Phase 1 (T=0ms, 300ms duration) */}
           {isPending && (
-            <div className={`md:sticky md:top-[84px] md:z-30 h-fit transition-all duration-300 ease-out ${
-              phase1Animated ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
-            }`}>
-              {/* Sentinel element to detect sticky state */}
-              <div ref={sentinelRef} className="absolute -top-[84px] h-0" aria-hidden="true" />
+            <div
+              className={`md:sticky md:z-30 h-fit transition-all duration-300 ease-out ${
+                phase1Animated ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
+              }`}
+              style={{ top: 'var(--sticky-cta-offset)' }}
+            >
+              {/* Sentinel element to detect sticky state - positioned at negative offset to detect when sidebar becomes sticky */}
+              <div ref={sentinelRef} className="absolute h-0" style={{ top: 'calc(var(--sticky-cta-offset) * -1)' }} aria-hidden="true" />
               <div className={`
                 bg-dark-bg dark:bg-white p-6
                 border border-gray-400
