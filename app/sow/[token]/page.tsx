@@ -27,6 +27,8 @@ import {
 import { ApprovalActions } from '@/components/sow/ApprovalActions';
 import { RejectionModal } from '@/components/sow/RejectionModal';
 import { ApprovalModal } from '@/components/sow/ApprovalModal';
+import { MobileStickyBottomCTA } from '@/components/sow/MobileStickyBottomCTA';
+import { GlowDot } from '@/components/sow/GlowDot';
 
 export default function SOWPage() {
   const params = useParams();
@@ -60,6 +62,10 @@ export default function SOWPage() {
   // Arrow bump animation state
   const [arrowBump, setArrowBump] = useState(false);
   const wasAtBottomRef = useRef(false);
+
+  // Mobile CTA visibility state
+  const [showMobileCTA, setShowMobileCTA] = useState(false);
+
 
   // PIN entry animation state
   const [pinEntryAnimated, setPinEntryAnimated] = useState(false);
@@ -272,7 +278,7 @@ export default function SOWPage() {
     };
   }, [sowData, calculateAlignment]);
 
-  // Detect when user scrolls to bottom and trigger arrow bump animation
+  // Detect when user scrolls to bottom and trigger arrow bump animation + mobile CTA
   useEffect(() => {
     if (!sowData || sowData.status !== 'pending') return;
     if (typeof window === 'undefined') return;
@@ -292,6 +298,11 @@ export default function SOWPage() {
         setTimeout(() => setArrowBump(false), 300);
       }
 
+      // Show mobile CTA when first reaching bottom (once shown, stays visible)
+      if (isAtBottom && !showMobileCTA) {
+        setShowMobileCTA(true);
+      }
+
       wasAtBottomRef.current = isAtBottom;
     };
 
@@ -300,7 +311,8 @@ export default function SOWPage() {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [sowData]);
+  }, [sowData, showMobileCTA]);
+
 
   // Load SOW data after PIN verification
   // Note: Data loading now starts immediately in handlePinComplete for faster UX
@@ -699,7 +711,7 @@ export default function SOWPage() {
             </LazySection>
 
             {/* Large status/action section at bottom */}
-            <div className="pt-8 md:pt-20 pb-8">
+            <div className={`pt-8 md:pt-20 pb-8 ${isPending ? 'hidden md:block' : ''}`}>
               <div className={`transition-all duration-300 ease-out ${
                 statusTransitioning ? 'opacity-0 scale-[0.98]' : 'opacity-100 scale-100'
               }`}>
@@ -717,9 +729,6 @@ export default function SOWPage() {
                       >→</span>
                     </h2>
                     <div className="border-b border-text-muted"></div>
-                    <p className="text-meta-compact text-status-rejected mt-3 mb-0 font-bold">
-                      THIS IS SUBJECT TO CHANGE AFTER PRE-PRODUCTION UPLOAD AND INSTALLATION
-                    </p>
                     {/* Dynamic spacer for perfect alignment at max scroll */}
                     <div
                       style={{ height: bottomSpacerHeight }}
@@ -764,10 +773,10 @@ export default function SOWPage() {
             </div>
           </div>
 
-          {/* Sticky Sidebar - Approval Actions - Phase 1 (T=0ms, 300ms duration) */}
+          {/* Sticky Sidebar - Approval Actions - Phase 1 (T=0ms, 300ms duration) - Desktop only */}
           {isPending && (
             <div
-              className={`md:sticky md:z-30 h-fit transition-all duration-300 ease-out ${
+              className={`hidden md:block md:sticky md:z-30 h-fit transition-all duration-300 ease-out ${
                 phase1Animated ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
               }`}
               style={{ top: 'var(--sticky-cta-offset)' }}
@@ -784,9 +793,7 @@ export default function SOWPage() {
               `}>
                 <div className="mb-6">
                   <div className="flex items-center gap-1.5 mb-10">
-                    <span className="flex items-center justify-center h-3 w-3 flex-shrink-0">
-                      <span className="animate-glow relative inline-flex rounded-full h-[5px] w-[5px] bg-status-pending"></span>
-                    </span>
+                    <GlowDot interactive />
                     <span className="text-meta-label text-white dark:text-dark-bg uppercase">
                       Action Required
                     </span>
@@ -806,11 +813,6 @@ export default function SOWPage() {
                   isLoading={actionLoading}
                 />
               </div>
-
-              {/* Disclaimer - Mobile only (below CTA) */}
-              <p className="md:hidden text-meta-compact text-status-rejected mt-6 font-bold text-left">
-                THIS IS SUBJECT TO CHANGE AFTER PRE-PRODUCTION UPLOAD AND INSTALLATION
-              </p>
             </div>
           )}
         </div>
@@ -831,6 +833,16 @@ export default function SOWPage() {
         onSubmit={handleReject}
         isLoading={actionLoading}
       />
+
+      {/* Mobile Sticky Bottom CTA */}
+      {isPending && (
+        <MobileStickyBottomCTA
+          isAnimated={showMobileCTA}
+          onApprove={() => setShowApprovalModal(true)}
+          onReject={() => setShowRejectionModal(true)}
+          isLoading={actionLoading}
+        />
+      )}
     </div>
   );
 }

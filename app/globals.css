@@ -125,36 +125,152 @@ body {
     pointer-events: none;
   }
 
-  /* Glow animation for amber dot */
-  @keyframes glow {
-    0%, 100% {
-      box-shadow:
-        0 0 3px 0.5px rgba(234, 179, 8, 0.5),
-        0 0 6px 2px rgba(234, 179, 8, 0.3),
-        0 0 10px 3px rgba(234, 179, 8, 0.15);
-    }
-    25% {
-      box-shadow:
-        0 0 5px 1.5px rgba(234, 179, 8, 0.7),
-        0 0 10px 3.5px rgba(234, 179, 8, 0.5),
-        0 0 16px 5px rgba(234, 179, 8, 0.25);
-    }
-    50% {
-      box-shadow:
-        0 0 6px 2px rgba(234, 179, 8, 1),
-        0 0 14px 5px rgba(234, 179, 8, 0.7),
-        0 0 22px 7px rgba(234, 179, 8, 0.4);
-    }
-    75% {
-      box-shadow:
-        0 0 5px 1.5px rgba(234, 179, 8, 0.7),
-        0 0 10px 3.5px rgba(234, 179, 8, 0.5),
-        0 0 16px 5px rgba(234, 179, 8, 0.25);
-    }
+  /* ═══════════════════════════════════════════════════════════════════════════
+     GLOW ANIMATIONS - Hollywood-style amber pulse variants
+     Click the dot to cycle through these animations
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+  /* Shared glow values for consistency */
+  :root {
+    --glow-dim:
+      0 0 2px 0.5px rgba(234, 179, 8, 0.4),
+      0 0 5px 1.5px rgba(234, 179, 8, 0.2),
+      0 0 8px 2px rgba(234, 179, 8, 0.1);
+    --glow-medium:
+      0 0 5px 1.5px rgba(234, 179, 8, 0.7),
+      0 0 10px 3.5px rgba(234, 179, 8, 0.45),
+      0 0 16px 5px rgba(234, 179, 8, 0.25);
+    --glow-bright:
+      0 0 7px 2.5px rgba(234, 179, 8, 1),
+      0 0 16px 6px rgba(234, 179, 8, 0.7),
+      0 0 26px 9px rgba(234, 179, 8, 0.45);
+    --glow-off:
+      0 0 1px 0px rgba(234, 179, 8, 0.2),
+      0 0 2px 0.5px rgba(234, 179, 8, 0.1),
+      0 0 3px 1px rgba(234, 179, 8, 0.05);
   }
 
+  /* 1. BREATHING - Slow organic pulse like something alive */
+  @keyframes glow-breathing {
+    0%, 100% { box-shadow: var(--glow-dim); }
+    20% { box-shadow: 0 0 6px 2px rgba(234, 179, 8, 0.9), 0 0 14px 5px rgba(234, 179, 8, 0.6), 0 0 22px 7px rgba(234, 179, 8, 0.35); }
+    28% { box-shadow: var(--glow-bright); }
+    35% { box-shadow: 0 0 5px 1.5px rgba(234, 179, 8, 0.75), 0 0 12px 4px rgba(234, 179, 8, 0.5), 0 0 20px 6px rgba(234, 179, 8, 0.3); }
+    40% { box-shadow: 0 0 6px 2px rgba(234, 179, 8, 0.85), 0 0 13px 5px rgba(234, 179, 8, 0.55), 0 0 21px 7px rgba(234, 179, 8, 0.32); }
+    55% { box-shadow: 0 0 4px 1px rgba(234, 179, 8, 0.6), 0 0 9px 3px rgba(234, 179, 8, 0.35), 0 0 14px 4px rgba(234, 179, 8, 0.18); }
+  }
+
+  /* 2. HEARTBEAT - Medical monitor double-beat with flat line */
+  @keyframes glow-heartbeat {
+    0%, 100% { box-shadow: var(--glow-off); }
+    /* First beat - sharp spike */
+    8% { box-shadow: var(--glow-off); }
+    10% { box-shadow: var(--glow-bright); }
+    14% { box-shadow: var(--glow-off); }
+    /* Second beat - slightly smaller */
+    18% { box-shadow: var(--glow-off); }
+    20% { box-shadow: var(--glow-medium); }
+    24% { box-shadow: var(--glow-off); }
+    /* Long flatline pause */
+  }
+
+  /* 3. BEACON - Warning light with pause (lighthouse/emergency) */
+  @keyframes glow-beacon {
+    0%, 100% { box-shadow: var(--glow-off); }
+    /* Sharp flash on */
+    5% { box-shadow: var(--glow-bright); }
+    /* Hold bright */
+    15% { box-shadow: var(--glow-bright); }
+    /* Quick fade */
+    25% { box-shadow: var(--glow-off); }
+    /* Long pause before next rotation */
+  }
+
+  /* 4. REACTOR - Sci-fi power core with random-feeling flares */
+  @keyframes glow-reactor {
+    0%, 100% { box-shadow: var(--glow-medium); }
+    /* Constant medium glow with periodic flares */
+    15% { box-shadow: var(--glow-medium); }
+    18% { box-shadow: var(--glow-bright); }
+    22% { box-shadow: var(--glow-medium); }
+    50% { box-shadow: var(--glow-medium); }
+    52% { box-shadow: 0 0 8px 3px rgba(234, 179, 8, 1), 0 0 20px 8px rgba(234, 179, 8, 0.8), 0 0 35px 12px rgba(234, 179, 8, 0.5); }
+    56% { box-shadow: var(--glow-medium); }
+    75% { box-shadow: var(--glow-dim); }
+    78% { box-shadow: var(--glow-medium); }
+  }
+
+  /* 5. EMERGENCY - Fast urgent pulse */
+  @keyframes glow-emergency {
+    0%, 100% { box-shadow: var(--glow-dim); }
+    25% { box-shadow: var(--glow-bright); }
+    50% { box-shadow: var(--glow-dim); }
+    75% { box-shadow: var(--glow-bright); }
+  }
+
+  /* 6. CANDLE - Organic flicker like a flame */
+  @keyframes glow-candle {
+    0% { box-shadow: var(--glow-medium); }
+    5% { box-shadow: var(--glow-dim); }
+    10% { box-shadow: var(--glow-medium); }
+    15% { box-shadow: 0 0 6px 2px rgba(234, 179, 8, 0.85), 0 0 12px 4px rgba(234, 179, 8, 0.55), 0 0 18px 6px rgba(234, 179, 8, 0.3); }
+    20% { box-shadow: var(--glow-medium); }
+    25% { box-shadow: var(--glow-bright); }
+    30% { box-shadow: var(--glow-medium); }
+    35% { box-shadow: var(--glow-dim); }
+    40% { box-shadow: var(--glow-medium); }
+    45% { box-shadow: var(--glow-medium); }
+    50% { box-shadow: var(--glow-dim); }
+    55% { box-shadow: var(--glow-medium); }
+    60% { box-shadow: var(--glow-bright); }
+    65% { box-shadow: var(--glow-medium); }
+    70% { box-shadow: var(--glow-dim); }
+    75% { box-shadow: var(--glow-medium); }
+    80% { box-shadow: 0 0 6px 2px rgba(234, 179, 8, 0.9), 0 0 14px 5px rgba(234, 179, 8, 0.6), 0 0 22px 7px rgba(234, 179, 8, 0.35); }
+    85% { box-shadow: var(--glow-medium); }
+    90% { box-shadow: var(--glow-dim); }
+    95% { box-shadow: var(--glow-medium); }
+    100% { box-shadow: var(--glow-medium); }
+  }
+
+  /* Animation classes */
+  .animate-glow-breathing {
+    animation: glow-breathing 4.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+
+  .animate-glow-heartbeat {
+    animation: glow-heartbeat 2s ease-in-out infinite;
+  }
+
+  .animate-glow-beacon {
+    animation: glow-beacon 3s ease-out infinite;
+  }
+
+  .animate-glow-reactor {
+    animation: glow-reactor 4s ease-in-out infinite;
+  }
+
+  .animate-glow-emergency {
+    animation: glow-emergency 1s ease-in-out infinite;
+  }
+
+  .animate-glow-candle {
+    animation: glow-candle 3s ease-in-out infinite;
+  }
+
+  /* Default glow (backwards compatibility) */
   .animate-glow {
-    animation: glow 3s ease-in-out infinite;
+    animation: glow-breathing 4.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+
+  /* Fade in for tooltips */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-4px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.15s ease-out forwards;
   }
 
   /* Arrow bump animation - pulls back left then shoots right like a slingshot */
