@@ -68,14 +68,40 @@ const config: Config = {
         },
       },
       fontSize: {
-        // Grafit-inspired typography scale
+        // Grafit-inspired typography scale (rem-based for accessibility)
+        // Display & Headings
         'display': ['3.5rem', { lineHeight: '1.1', fontWeight: '300', letterSpacing: '-0.02em' }],
-        'heading-1': ['2.375rem', { lineHeight: '1.2', fontWeight: '300', letterSpacing: '-0.01em' }],
+        'heading-1': ['2.375rem', { lineHeight: '1.186', fontWeight: '400', letterSpacing: '0' }], // 38px
         'heading-2': ['1.875rem', { lineHeight: '1.3', fontWeight: '300' }],
         'heading-3': ['1.4375rem', { lineHeight: '1.2', fontWeight: '300' }],
+
+        // Body text
         'body-lg': ['1.125rem', { lineHeight: '1.5', fontWeight: '300' }],
         'body': ['1rem', { lineHeight: '1.5', fontWeight: '300' }],
         'body-sm': ['0.875rem', { lineHeight: '1.5', fontWeight: '300' }],
+
+        // Section-specific typography
+        'section-label': ['1.1875rem', { lineHeight: '1.368', fontWeight: '400', letterSpacing: '0.05em' }], // 19px - uppercase labels
+        'section-value': ['0.9375rem', { lineHeight: '1.5', fontWeight: '400', letterSpacing: '0' }], // 15px - data values
+
+        // Sidebar & Navigation
+        'sidebar-heading': ['0.8125rem', { lineHeight: '1.231', fontWeight: '600', letterSpacing: '0' }], // 13px
+        'sidebar-text': ['0.6875rem', { lineHeight: '1.455', fontWeight: '400', letterSpacing: '0' }], // 11px
+
+        // Metadata & Small Text
+        'meta': ['0.6875rem', { lineHeight: '2.1045', fontWeight: '400', letterSpacing: '0' }], // 11px (23.15px line height)
+        'meta-compact': ['0.6875rem', { lineHeight: '1.455', fontWeight: '400', letterSpacing: '0' }], // 11px (16px line height)
+        'meta-label': ['0.6875rem', { lineHeight: '1.091', fontWeight: '400', letterSpacing: '0' }], // 11px (12px line height)
+        'meta-badge': ['0.6875rem', { lineHeight: '1.455', fontWeight: '500', letterSpacing: '0' }], // 11px - status badges
+
+        // Buttons & Interactive
+        'button': ['0.9375rem', { lineHeight: '1.5', fontWeight: '400', letterSpacing: '0' }], // 15px
+
+        // Special purpose
+        'disclaimer': ['1.4375rem', { lineHeight: '1.565', fontWeight: '900', letterSpacing: '0.025em' }], // 23px - emphasis
+        'breadcrumb': ['0.6875rem', { lineHeight: '1.455', fontWeight: '400', letterSpacing: '0.02em' }], // 11px
+
+        // Legacy (keep for backwards compatibility during migration)
         'label': ['0.75rem', { lineHeight: '1.4', fontWeight: '300', letterSpacing: '0.05em' }],
       },
       spacing: {

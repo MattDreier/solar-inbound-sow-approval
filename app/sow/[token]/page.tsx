@@ -580,7 +580,7 @@ export default function SOWPage() {
           {/* Left: Customer Info - 5 columns */}
           <div className="md:col-span-5 flex flex-col justify-between">
             {/* Breadcrumb at top - Phase 3 (T=150ms, 250ms duration) */}
-            <p className={`text-[11px] leading-[23.15px] text-text-muted uppercase tracking-normal mb-0 font-normal transition-all duration-[250ms] ease-out ${
+            <p className={`text-meta text-text-muted uppercase mb-0 transition-all duration-[250ms] ease-out ${
               phase3Animated ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
             }`}>
               SCOPE OF WORK &nbsp;&nbsp;›&nbsp;&nbsp; {sowData.customer.address.toUpperCase()}
@@ -589,21 +589,21 @@ export default function SOWPage() {
             {/* Content at bottom (using space-between) */}
             <div>
               {/* Customer Name - Phase 1 (T=0ms, 300ms duration) */}
-              <h1 className={`text-[38px] leading-[45.05px] text-text-primary font-normal tracking-normal mb-0 transition-all duration-300 ease-out ${
+              <h1 className={`text-heading-1 text-text-primary mb-0 transition-all duration-300 ease-out ${
                 phase1Animated ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
               }`}>
                 {sowData.customer.name}
               </h1>
 
               {/* Badge - Phase 1 (T=0ms, 300ms duration) */}
-              <div className={`inline-block px-2 py-1 bg-card text-text-primary text-[11px] leading-[16px] font-medium uppercase tracking-normal border border-border mt-[44.69px] mb-2 transition-all duration-300 ease-out ${
+              <div className={`inline-block px-2 py-1 bg-card text-text-primary text-meta-compact uppercase border border-border mt-[44.69px] mb-2 transition-all duration-300 ease-out ${
                 phase1Animated ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
               }`}>
                 SOLAR PROJECT
               </div>
 
               {/* System Size - Phase 1 (T=0ms, 300ms duration) */}
-              <p className={`text-[19px] leading-[25.99px] text-text-primary font-medium tracking-normal transition-all duration-300 ease-out ${
+              <p className={`text-section-label text-text-primary font-medium transition-all duration-300 ease-out ${
                 phase1Animated ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
               }`}>
                 {sowData.system.size} kW System
@@ -697,7 +697,7 @@ export default function SOWPage() {
                   <div className="hidden md:block">
                     <h2
                       ref={approveHeadingRef}
-                      className="text-[38px] leading-[45.05px] text-text-primary font-normal tracking-normal flex justify-between items-center mt-8 md:mt-[100px] mb-8"
+                      className="text-heading-1 text-text-primary flex justify-between items-center mt-8 md:mt-[100px] mb-8"
                     >
                       <span>Approve</span>
                       <span
@@ -706,7 +706,7 @@ export default function SOWPage() {
                       >→</span>
                     </h2>
                     <div className="border-b border-text-muted"></div>
-                    <p className="text-[11px] text-status-rejected mt-3 mb-0 font-bold">
+                    <p className="text-meta-compact text-status-rejected mt-3 mb-0 font-bold">
                       THIS IS SUBJECT TO CHANGE AFTER PRE-PRODUCTION UPLOAD AND INSTALLATION
                     </p>
                     {/* Dynamic spacer for perfect alignment at max scroll */}
@@ -718,32 +718,32 @@ export default function SOWPage() {
                 ) : sowData.status === 'approved' ? (
                   // Approved: Show approval details
                   <>
-                    <h2 className="text-[38px] leading-[45.05px] text-status-approved font-normal tracking-normal mt-8 md:mt-[100px]">
+                    <h2 className="text-heading-1 text-status-approved mt-8 md:mt-[100px]">
                       APPROVED
                     </h2>
                     <div className="pt-6 border-b border-text-muted"></div>
-                    <p className="text-[11px] text-gray-500 mt-3 font-normal uppercase">
+                    <p className="text-meta-compact text-gray-500 mt-3 uppercase">
                       BY {sowData.approvedBy}
                     </p>
-                    <p className="text-[11px] text-gray-500 font-normal uppercase">
+                    <p className="text-meta-compact text-gray-500 uppercase">
                       ON {formatDate(sowData.approvedAt)}
                     </p>
                   </>
                 ) : (
                   // Rejected: Show rejection details
                   <>
-                    <h2 className="text-[38px] leading-[45.05px] text-status-rejected font-normal tracking-normal mt-8 md:mt-[100px]">
+                    <h2 className="text-heading-1 text-status-rejected mt-8 md:mt-[100px]">
                       REJECTED
                     </h2>
                     <div className="pt-6 border-b border-text-muted"></div>
-                    <p className="text-[11px] text-gray-500 mt-3 font-normal uppercase">
+                    <p className="text-meta-compact text-gray-500 mt-3 uppercase">
                       BY {sowData.salesRep.email}
                     </p>
-                    <p className="text-[11px] text-gray-500 font-normal uppercase">
+                    <p className="text-meta-compact text-gray-500 uppercase">
                       ON {formatDate(sowData.rejectedAt)}
                     </p>
                     {sowData.rejectionReason && (
-                      <p className="text-[11px] text-white mt-2 font-normal">
+                      <p className="text-meta-compact text-white mt-2">
                         Reason: {sowData.rejectionReason}
                       </p>
                     )}
@@ -773,14 +773,14 @@ export default function SOWPage() {
                     <span className="flex items-center justify-center h-3 w-3 flex-shrink-0">
                       <span className="animate-glow relative inline-flex rounded-full h-[5px] w-[5px] bg-status-pending"></span>
                     </span>
-                    <span className="text-[11px] text-white dark:text-dark-bg uppercase leading-[12px] font-normal">
+                    <span className="text-meta-label text-white dark:text-dark-bg uppercase">
                       Action Required
                     </span>
                   </div>
-                  <h3 className="text-[13px] text-white dark:text-dark-bg mb-3 font-semibold leading-tight">
+                  <h3 className="text-sidebar-heading text-white dark:text-dark-bg mb-3">
                     Review & Approve
                   </h3>
-                  <p className="text-[11px] text-text-muted leading-snug font-normal">
+                  <p className="text-sidebar-text text-text-muted">
                     Please reach out if you have any questions
                   </p>
                 </div>
@@ -794,7 +794,7 @@ export default function SOWPage() {
               </div>
 
               {/* Disclaimer - Mobile only (below CTA) */}
-              <p className="md:hidden text-[11px] text-status-rejected mt-6 font-bold text-left">
+              <p className="md:hidden text-meta-compact text-status-rejected mt-6 font-bold text-left">
                 THIS IS SUBJECT TO CHANGE AFTER PRE-PRODUCTION UPLOAD AND INSTALLATION
               </p>
             </div>
