@@ -8,13 +8,6 @@ const config: Config = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    screens: {
-      'sm': '640px',
-      'md': '780px',  // iPad Air portrait (820px) - more buffer above iPad mini (768px)
-      'lg': '1024px',
-      'xl': '1280px',
-      '2xl': '1536px',
-    },
     extend: {
       colors: {
         // Theme-aware semantic tokens (NEW)
