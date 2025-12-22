@@ -589,21 +589,21 @@ export default function SOWPage() {
             {/* Content at bottom (using space-between) */}
             <div>
               {/* Customer Name - Phase 1 (T=0ms, 300ms duration) */}
-              <h1 className={`text-[37.54px] leading-[45.05px] text-text-primary font-normal tracking-normal mb-0 transition-all duration-300 ease-out ${
+              <h1 className={`text-[38px] leading-[45.05px] text-text-primary font-normal tracking-normal mb-0 transition-all duration-300 ease-out ${
                 phase1Animated ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
               }`}>
                 {sowData.customer.name}
               </h1>
 
               {/* Badge - Phase 1 (T=0ms, 300ms duration) */}
-              <div className={`inline-block px-2 py-1 bg-card text-text-primary text-[11.66px] leading-[16px] font-medium uppercase tracking-normal border border-border mt-[44.69px] mb-2 transition-all duration-300 ease-out ${
+              <div className={`inline-block px-2 py-1 bg-card text-text-primary text-[11px] leading-[16px] font-medium uppercase tracking-normal border border-border mt-[44.69px] mb-2 transition-all duration-300 ease-out ${
                 phase1Animated ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
               }`}>
                 SOLAR PROJECT
               </div>
 
               {/* System Size - Phase 1 (T=0ms, 300ms duration) */}
-              <p className={`text-[17.32px] leading-[25.99px] text-text-primary font-medium tracking-normal transition-all duration-300 ease-out ${
+              <p className={`text-[19px] leading-[25.99px] text-text-primary font-medium tracking-normal transition-all duration-300 ease-out ${
                 phase1Animated ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
               }`}>
                 {sowData.system.size} kW System
@@ -697,7 +697,7 @@ export default function SOWPage() {
                   <div className="hidden md:block">
                     <h2
                       ref={approveHeadingRef}
-                      className="text-[37.54px] leading-[45.05px] text-text-primary font-normal tracking-normal flex justify-between items-center mt-8 md:mt-[100px] mb-8"
+                      className="text-[38px] leading-[45.05px] text-text-primary font-normal tracking-normal flex justify-between items-center mt-8 md:mt-[100px] mb-8"
                     >
                       <span>Approve</span>
                       <span
@@ -718,7 +718,7 @@ export default function SOWPage() {
                 ) : sowData.status === 'approved' ? (
                   // Approved: Show approval details
                   <>
-                    <h2 className="text-[37.54px] leading-[45.05px] text-status-approved font-normal tracking-normal mt-8 md:mt-[100px]">
+                    <h2 className="text-[38px] leading-[45.05px] text-status-approved font-normal tracking-normal mt-8 md:mt-[100px]">
                       APPROVED
                     </h2>
                     <div className="pt-6 border-b border-text-muted"></div>
@@ -732,7 +732,7 @@ export default function SOWPage() {
                 ) : (
                   // Rejected: Show rejection details
                   <>
-                    <h2 className="text-[37.54px] leading-[45.05px] text-status-rejected font-normal tracking-normal mt-8 md:mt-[100px]">
+                    <h2 className="text-[38px] leading-[45.05px] text-status-rejected font-normal tracking-normal mt-8 md:mt-[100px]">
                       REJECTED
                     </h2>
                     <div className="pt-6 border-b border-text-muted"></div>
