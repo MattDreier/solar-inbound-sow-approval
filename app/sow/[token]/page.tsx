@@ -583,7 +583,16 @@ export default function SOWPage() {
             <p className={`text-meta text-text-muted uppercase mb-0 transition-all duration-[250ms] ease-out ${
               phase3Animated ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
             }`}>
-              SCOPE OF WORK &nbsp;&nbsp;›&nbsp;&nbsp; {sowData.customer.address.toUpperCase()}
+              <span className="inline-block whitespace-nowrap">SCOPE OF WORK  ›</span>
+              <span className="inline-block ml-[0.5em]" style={{ wordBreak: 'break-word' }}>
+                {sowData.customer.address.toUpperCase().split(',').map((part, idx, arr) => (
+                  <span key={idx}>
+                    {part.trim()}
+                    {idx < arr.length - 1 && ','}
+                    {idx < arr.length - 1 && <wbr />}
+                  </span>
+                ))}
+              </span>
             </p>
 
             {/* Content at bottom (using space-between) */}
@@ -627,7 +636,7 @@ export default function SOWPage() {
         </div>
 
         {/* Two-column layout: Main content + Sticky sidebar */}
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_233px] gap-16 pb-24">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_333px] gap-16 pb-24">
           {/* Main Content */}
           <div className="space-y-12 md:space-y-24">
 
@@ -761,7 +770,7 @@ export default function SOWPage() {
               {/* Sentinel element to detect sticky state */}
               <div ref={sentinelRef} className="absolute -top-[84px] h-0" aria-hidden="true" />
               <div className={`
-                bg-dark-bg dark:bg-white p-8
+                bg-dark-bg dark:bg-white p-6
                 border border-gray-400
                 transition-all duration-200 ease-out
                 ${isSticky ? 'border-t-2 scale-[1.01] shadow-sm' : ''}

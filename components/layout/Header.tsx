@@ -45,7 +45,7 @@ export function Header() {
         <div
           className={`
             flex items-center justify-between transition-all duration-300
-            px-6 py-1 border
+            h-[58px] px-6 py-1 border
             ${isScrolled && isDark ? 'bg-white' : ''}
             ${isScrolled && !isDark ? 'bg-dark-bg' : ''}
             ${isScrolled ? 'border-gray-400' : 'border-transparent'}
@@ -58,7 +58,7 @@ export function Header() {
             type="button"
             title="[Testing] Click to clear localStorage"
           >
-            <div className="relative h-16 w-32">
+            <div className="relative h-10 w-24">
               <Image
                 src="/sunvena-logo-new.png"
                 alt="SunVena Solar Logo"
