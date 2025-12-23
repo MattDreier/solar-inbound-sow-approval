@@ -55,7 +55,6 @@ export function MobileStickyBottomCTA({
             <Button
               variant="primary"
               onClick={onApprove}
-              isLoading={isLoading}
               disabled={isLoading}
               className="flex-1 min-h-[48px] px-4 py-2 text-button-compact justify-start text-left"
             >
@@ -64,11 +63,10 @@ export function MobileStickyBottomCTA({
             <Button
               variant="secondary"
               onClick={onReject}
-              isLoading={isLoading}
               disabled={isLoading}
               className="flex-1 min-h-[48px] px-4 py-2 text-button-compact justify-start text-left"
             >
-              Reject
+              Request Changes
             </Button>
           </div>
         </div>

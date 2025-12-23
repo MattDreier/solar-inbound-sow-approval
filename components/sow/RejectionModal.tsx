@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/Button';
 const rejectionSchema = z.object({
   reason: z
     .string()
-    .min(1, 'Rejection reason is required')
+    .min(1, 'Please describe the changes you need')
     .max(2000, 'Reason must be 2000 characters or less'),
 });
 
@@ -54,14 +54,14 @@ export function RejectionModal({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={handleClose} title="Reject Scope of Work">
+    <Modal isOpen={isOpen} onClose={handleClose} title="Request Changes">
       <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
         <div>
           <label
             htmlFor="rejection-reason"
             className="block text-sm font-medium text-text-secondary mb-3"
           >
-            Reason for Rejection
+            What changes do you need?
           </label>
           <textarea
             id="rejection-reason"
@@ -69,7 +69,7 @@ export function RejectionModal({
             className={`w-full px-3 py-2 border focus:outline-none focus:ring-2 focus:ring-primary resize-none ${
               errors.reason ? 'border-status-rejected' : 'border-border'
             }`}
-            placeholder="Please provide a detailed reason for rejecting this scope of work..."
+            placeholder="Please describe the changes you'd like made to this scope of work..."
             disabled={isLoading}
             {...register('reason')}
           />
@@ -94,11 +94,10 @@ export function RejectionModal({
           <Button
             type="submit"
             variant="primary"
-            isLoading={isLoading}
             disabled={!isValid || isLoading}
             className="w-full text-sm py-1 text-left pl-4 min-h-[61.5px] md:min-h-[42px] bg-gray-900 text-white dark:bg-white dark:text-gray-900"
           >
-            Submit Rejection
+            Submit Request
           </Button>
         </div>
       </form>

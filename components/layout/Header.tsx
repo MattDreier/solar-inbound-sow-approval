@@ -7,7 +7,7 @@ import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { clearAllSOWStates } from '@/lib/storage';
 
 /**
- * Header component with sticky positioning.
+ * Header component with sticky positioning (tablet and up only).
  *
  * LAYOUT STRUCTURE:
  *   <header>                        ← sticky element
@@ -57,7 +57,7 @@ export function Header() {
   const isDark = resolvedTheme === 'dark';
 
   return (
-    <header className="sticky top-0 z-40 transition-all duration-300">
+    <header className="md:sticky md:top-0 z-40 transition-all duration-300">
       {/* Padding: 21px mobile, 29px tablet (780px+), 44px desktop (1024px+) */}
       <div className="max-w-container mx-auto px-[21px] md:px-[29px] lg:px-[44px] py-2.5">
         <div
@@ -76,9 +76,9 @@ export function Header() {
             type="button"
             title="[Testing] Click to clear localStorage"
           >
-            <div className="relative h-10 w-24">
+            <div className="relative h-12 w-32">
               <Image
-                src="/sunvena-logo-new.png"
+                src="/sunvena-logo-transparent-background.png"
                 alt="SunVena Solar Logo"
                 fill
                 className="object-contain object-left"

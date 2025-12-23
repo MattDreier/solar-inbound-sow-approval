@@ -18,7 +18,6 @@ export const ApprovalActions = forwardRef<HTMLButtonElement, ApprovalActionsProp
           ref={ref}
           variant="primary"
           onClick={onApprove}
-          isLoading={isLoading}
           disabled={isLoading}
           className="w-full text-button py-1 text-left pl-4 min-h-[61.5px] md:min-h-[42px]"
         >
@@ -27,11 +26,10 @@ export const ApprovalActions = forwardRef<HTMLButtonElement, ApprovalActionsProp
         <Button
           variant="secondary"
           onClick={onReject}
-          isLoading={isLoading}
           disabled={isLoading}
           className="w-full text-button py-1 text-left pl-4 min-h-[61.5px] md:min-h-[42px]"
         >
-          Reject
+          Request Changes
         </Button>
       </div>
     );

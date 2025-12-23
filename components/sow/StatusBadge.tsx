@@ -14,7 +14,7 @@ export function StatusBadge({ data }: StatusBadgeProps) {
   const isApproved = data.status === 'approved';
   const bgColor = isApproved ? 'bg-status-approved' : 'bg-status-rejected';
   const borderColor = isApproved ? 'border-status-approved' : 'border-status-rejected';
-  const statusText = isApproved ? 'APPROVED' : 'REJECTED';
+  const statusText = isApproved ? 'APPROVED' : 'CHANGES REQUESTED';
   const timestamp = isApproved ? data.approvedAt : data.rejectedAt;
   const actionBy = isApproved ? data.approvedBy : null;
 
@@ -39,7 +39,7 @@ export function StatusBadge({ data }: StatusBadgeProps) {
       {!isApproved && data.rejectionReason && (
         <Card className="border-2 border-status-rejected">
           <div className="space-y-3">
-            <h3 className="text-section-label uppercase text-text-muted">Rejection Reason</h3>
+            <h3 className="text-section-label uppercase text-text-muted">Changes Requested</h3>
             <p className="text-section-value text-text-primary whitespace-pre-wrap">{data.rejectionReason}</p>
           </div>
         </Card>

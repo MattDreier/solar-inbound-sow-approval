@@ -37,7 +37,6 @@ export function ApprovalModal({
           <Button
             variant="primary"
             onClick={handleConfirm}
-            isLoading={isLoading}
             disabled={isLoading}
             className="w-full text-sm py-1 text-left pl-4 min-h-[61.5px] md:min-h-[42px] bg-gray-900 text-white dark:bg-white dark:text-gray-900"
           >

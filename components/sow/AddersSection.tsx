@@ -32,7 +32,7 @@ export function AddersSection({ data }: AddersSectionProps) {
           ))}
 
           <div className="flex flex-col md:grid md:grid-cols-[240px_1fr] gap-2 md:gap-8 md:items-baseline py-6 border-b border-text-muted">
-            <span className="text-section-label uppercase text-text-muted">Total Adders</span>
+            <span className="text-section-label uppercase text-text-muted">Total</span>
             <span className="text-section-value text-text-primary break-words">
               {formatCurrency(adders.addersTotal)}
             </span>

@@ -46,7 +46,7 @@ export function formatDate(isoDate: string | null): string {
   }
 }
 
-// Adder label formatter (convert camelCase to Title Case)
+// Adder label formatter (convert camelCase to Title Case, strip redundant "Adder" suffix)
 export function formatAdderLabel(key: string): string {
   return key
     // Insert space before capital letters
@@ -57,7 +57,9 @@ export function formatAdderLabel(key: string): string {
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     // Join back together
     .join(' ')
-    .trim();
+    .trim()
+    // Remove trailing "Adder" since section header is already "Adders"
+    .replace(/ Adder$/, '');
 }
 
 // Check if a value should be displayed (not null/undefined/empty)

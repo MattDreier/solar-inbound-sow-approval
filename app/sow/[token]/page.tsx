@@ -687,7 +687,7 @@ export default function SOWPage() {
             {/* Adders - lazy loaded only (below fold) */}
             <LazySection minHeight="300px">
               <section className="space-y-6">
-                <h2 className="text-heading-3 text-text-primary font-normal">Additional Items</h2>
+                <h2 className="text-heading-3 text-text-primary font-normal">Adders</h2>
                 <AddersSection data={sowData} />
               </section>
             </LazySection>
@@ -753,7 +753,7 @@ export default function SOWPage() {
                   // Rejected: Show rejection details
                   <>
                     <h2 className="text-heading-1 text-status-rejected mt-8 md:mt-[100px]">
-                      REJECTED
+                      CHANGES REQUESTED
                     </h2>
                     <div className="pt-6 border-b border-text-muted"></div>
                     <p className="text-section-label text-text-muted mt-3 uppercase">
@@ -764,7 +764,7 @@ export default function SOWPage() {
                     </p>
                     {sowData.rejectionReason && (
                       <p className="text-section-value text-text-primary mt-4">
-                        Reason: {sowData.rejectionReason}
+                        Changes Requested: {sowData.rejectionReason}
                       </p>
                     )}
                   </>
